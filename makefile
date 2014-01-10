@@ -25,12 +25,14 @@ CPPFLAGS_TEST += $(CPPFLAGS) \
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -Wall -Wextra -std=c++0x
 
-all: $(UNIT_TEST_BINARY) run_unit_tests 
+all: $(BIN_DIR) $(UNIT_TEST_BINARY) run_unit_tests 
 
-build: $(PRODUCTION_OBJ) obj/main/main.o
+build: $(BIN_DIR) $(PRODUCTION_BINARY)
+
+st: $(BIN_DIR) $(SYSTEM_TEST_BINARY) run_system_tests
+
+$(PRODUCTION_BINARY): $(PRODUCTION_OBJ) obj/main/main.o
 	$(CXX) $(CPPFLAGS_TEST) $(CXXFLAGS) $^ -o $(PRODUCTION_BINARY)
-
-st: $(SYSTEM_TEST_BINARY) run_system_tests
 
 $(UNIT_TEST_BINARY): $(PRODUCTION_OBJ) $(UNIT_TEST_OBJ) $(GTEST_ARCHIVE)
 	$(CXX) $(CPPFLAGS_TEST) $(CXXFLAGS) $^ -lpthread -o $@
@@ -52,6 +54,9 @@ obj obj/unittest obj/systemtest obj/main:
 
 obj/main/main.o: main.cpp obj/main
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
 
 .PHONY: run_unit_tests
 run_unit_tests:
