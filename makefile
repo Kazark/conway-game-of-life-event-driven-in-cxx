@@ -2,7 +2,7 @@ UNAME := $(shell uname -m)
 GTEST_DIR = $(HOME)/dev/gtest-1.6.0/
 GTEST_ARCHIVE = lib/$(UNAME)/gtest_main.a
 
-BIN_DIR = ../bin
+BIN_DIR = bin
 PROJECT_NAME = GameOfLife
 
 PRODUCTION_SRC = $(wildcard src/*.cpp)
@@ -48,7 +48,7 @@ obj/systemtest/%.o: systemtest/%.cpp obj/systemtest
 	$(CXX) $(CPPFLAGS_TEST) $(CXXFLAGS) -c $< -o $@
 
 obj obj/unittest obj/systemtest obj/main:
-	mkdir $@
+	mkdir -p $@
 
 obj/main/main.o: main.cpp obj/main
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
