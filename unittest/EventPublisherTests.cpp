@@ -9,9 +9,9 @@ using namespace ::EventArchitecture;
 
 TEST(EventPublisherTests, publish_does_nothing_when_nothing_is_subscribed)
 {
-    EventPublisher<EventForTesting> publisher;
+    EventPublisher<int> publisher;
 
-    publisher.publishEvent(EventForTesting(1));
+    publisher.publishEvent(1);
 }
 
 TEST(EventPublisherTests, can_add_and_publish_to_subscribers)
