@@ -12,6 +12,9 @@ namespace ConwayGameOfLife {
         LivingNeighborsOfDeadCellCountedHandler(IHandle<CellLived>&, IHandle<CellDied>&);
         void handle(LivingNeighborsOfDeadCellCounted);
 	private:
+        void cellComesToLifeAt(CartesianPosition) const;
+        void cellRemainsDeadAt(CartesianPosition) const;
+
         IHandle<CellLived>& _cellLivedHandler;
         IHandle<CellDied>& _cellDiedHandler;
 	};

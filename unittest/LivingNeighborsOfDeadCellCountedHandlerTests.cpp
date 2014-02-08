@@ -51,3 +51,24 @@ TEST_F(LivingNeighborsOfDeadCellCountedHandlerTests, Dead_cell_remains_dead_with
     EXPECT_TRUE(cellDiedHandler.wasCalled);
     EXPECT_FALSE(cellLivedHandler.wasCalled);
 }
+
+TEST_F(LivingNeighborsOfDeadCellCountedHandlerTests, Position_published_when_cell_remains_dead)
+{
+    LivingNeighborsOfDeadCellCounted event;
+    event.cellLocation = CartesianPosition(1, 2);
+
+    objectUnderTest.handle(event);
+
+    ASSERT_EQ(event.cellLocation, cellDiedHandler.handledEvent.location);
+}
+
+TEST_F(LivingNeighborsOfDeadCellCountedHandlerTests, Position_published_when_cell_comes_to_life)
+{
+    LivingNeighborsOfDeadCellCounted event;
+    event.numberOfLivingNeighbors = 3;
+    event.cellLocation = CartesianPosition(1, 2);
+
+    objectUnderTest.handle(event);
+
+    ASSERT_EQ(event.cellLocation, cellLivedHandler.handledEvent.location);
+}

@@ -8,14 +8,29 @@ LivingNeighborsOfDeadCellCountedHandler::LivingNeighborsOfDeadCellCountedHandler
     _cellDiedHandler(cellDiedHandler)
 {}
 
-void LivingNeighborsOfDeadCellCountedHandler::handle(LivingNeighborsOfDeadCellCounted eventData)
+void LivingNeighborsOfDeadCellCountedHandler::handle(LivingNeighborsOfDeadCellCounted inEvent)
 {
-    if (eventData.numberOfLivingNeighbors == 3)
+    if (inEvent.numberOfLivingNeighbors == 3)
     {
-        _cellLivedHandler.handle(CellLived());
+        cellComesToLifeAt(inEvent.cellLocation);
     }
     else
     {
-        _cellDiedHandler.handle(CellDied());
+        cellRemainsDeadAt(inEvent.cellLocation);
     }
 }
+
+void LivingNeighborsOfDeadCellCountedHandler::cellComesToLifeAt(CartesianPosition location) const
+{
+    CellLived outEvent;
+    outEvent.location = location;
+    _cellLivedHandler.handle(outEvent);
+}
+
+void LivingNeighborsOfDeadCellCountedHandler::cellRemainsDeadAt(CartesianPosition location) const
+{
+    CellDied outEvent;
+    outEvent.location = location;
+    _cellDiedHandler.handle(outEvent);
+}
+
