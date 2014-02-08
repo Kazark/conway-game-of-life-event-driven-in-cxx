@@ -5,7 +5,6 @@
 
 namespace ConwayGameOfLife {
 	struct CellLived {
-        unsigned GenerationNumber;
         CartesianPosition location;
 	};
 }
