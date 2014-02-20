@@ -2,7 +2,7 @@
 
 // Code under test
 #include "ArrayIterator.hpp"
-using namespace ::oog::core;
+using namespace ::ConwayGameOfLife;
 
 #include <vector>
 

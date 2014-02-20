@@ -1,7 +1,6 @@
 #ifndef _OOG_CORE_ARRAYITERATOR_HPP_
 #define _OOG_CORE_ARRAYITERATOR_HPP_
-namespace oog {
-namespace core {
+namespace ConwayGameOfLife {
     template<typename TElement, template<typename> class TArray>
 	class ArrayIterator {
 	public:
@@ -38,6 +37,5 @@ namespace core {
 	private:
         TArray<TElement> array;
 	};
-}
 }
 #endif
