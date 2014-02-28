@@ -1,9 +1,11 @@
-#ifndef _EVENTARCHITECTURE_UNPACKAGERREGISTRY_HPP_
-#define _EVENTARCHITECTURE_UNPACKAGERREGISTRY_HPP_
+#ifndef _EVENTARCHITECTURE_ROUTER_HPP_
+#define _EVENTARCHITECTURE_ROUTER_HPP_
 
+// Event Architecture
 #include "IHandle.hpp"
 #include "Event.hpp"
 
+// C++ Standard libraries
 #include <unordered_map>
 #include <typeindex>
 

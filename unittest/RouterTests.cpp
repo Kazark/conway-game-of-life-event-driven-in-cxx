@@ -7,7 +7,7 @@ using namespace ::EventArchitecture;
 // Testing code
 #include "EventForTestingHandler.hpp"
 
-TEST(EventRouterTests, registers_and_invokes_handlers)
+TEST(RouterTests, registers_and_invokes_handlers)
 {
     auto event = EventForTesting(3U);
     EventForTestingHandler handler;
