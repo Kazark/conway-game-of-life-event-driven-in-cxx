@@ -22,7 +22,11 @@ namespace EventArchitecture {
             registry[typeid(TEvent)] = new Unpackager<TEvent>(handler);
         }
 
-        void invokeHandler(Event*) const;
+        void invokeHandler(Event* event) const
+        {
+            auto unpackager = registry.at(std::type_index(typeid(*event)));
+            unpackager->invokeHandler(event);
+        }
 
 	private:
         class IUnpackage {
