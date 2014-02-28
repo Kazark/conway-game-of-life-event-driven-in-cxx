@@ -24,12 +24,13 @@ namespace EventArchitecture {
 
         void invokeHandler(Event*) const;
 
+	private:
         class IUnpackage {
         public:
             virtual void invokeHandler(Event*) const = 0;
         };
 
-	private:
+        friend class std::unordered_map<std::type_index, IUnpackage*>;
         std::unordered_map<std::type_index, IUnpackage*> registry;
 
         template<typename TEvent>
