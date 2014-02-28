@@ -1,19 +1,20 @@
 #include "gtest/gtest.h"
 
 // Code Under Test
-#include "Unpackager.hpp"
+#include "Router.hpp"
 using namespace ::EventArchitecture;
 
 // Testing code
 #include "EventForTestingHandler.hpp"
 
-TEST(UnpackagerTests, invokes_the_handler_with_the_event_cast_to_its_concrete_type)
+TEST(EventRouterTests, registers_and_invokes_handlers)
 {
     auto event = EventForTesting(3U);
     EventForTestingHandler handler;
-    auto unpackager = Unpackager<EventForTesting>(handler);
+    Router objectUnderTest;
 
-    unpackager.invokeHandlerFor(static_cast<Event*>(&event));
+    objectUnderTest.registerHandler(handler);
+    objectUnderTest.invokeHandler(static_cast<Event*>(&event));
 
     ASSERT_TRUE(handler.handledEventWithId(event.id));
 }
