@@ -1,6 +1,9 @@
 #ifndef _EVENTFORTESTING_HPP_
 #define _EVENTFORTESTING_HPP_
-struct EventForTesting {
+
+#include "Event.hpp"
+
+struct EventForTesting : public EventArchitecture::Event {
     EventForTesting(unsigned id) : id(id) {}
     const unsigned id;
 };
