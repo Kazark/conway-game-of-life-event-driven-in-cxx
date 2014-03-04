@@ -58,6 +58,10 @@ obj/main/main.o: main.cpp obj/main
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
+.PHONY: debugunit
+debugunit:
+	gdb $(UNIT_TEST_BINARY)
+
 .PHONY: memcheck
 memcheck:
 	valgrind $(UNIT_TEST_BINARY)
