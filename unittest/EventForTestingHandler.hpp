@@ -23,4 +23,20 @@ public:
 private:
     std::unordered_set<unsigned> eventIDs;
 };
+
+class EventPointerHandlerForTesting : public ::EventArchitecture::IHandle<EventArchitecture::Event*> {
+public:
+    void handle(::EventArchitecture::Event* event) {
+        innerHandler.handle(*dynamic_cast<EventForTesting*>(event));
+    }
+
+    bool handledEventWithId(unsigned id)
+    {
+        return innerHandler.handledEventWithId(id);
+    }
+
+private:
+    EventForTestingHandler innerHandler;
+};
+
 #endif

@@ -9,7 +9,7 @@ using namespace ::EventArchitecture;
 
 TEST(RouterTests, registers_and_invokes_handlers)
 {
-    auto event = EventForTesting(3U);
+    EventForTesting event{3U};
     EventForTestingHandler handler;
     Router objectUnderTest;
 
