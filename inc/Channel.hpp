@@ -13,6 +13,7 @@ namespace EventArchitecture {
         Channel(IHandle<Event*>&);
         ~Channel();
         void handle(Event*);
+        void deliverOne();
         bool hasMore() const;
 
 	private:

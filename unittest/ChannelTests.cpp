@@ -26,3 +26,15 @@ TEST(ChannelTests, can_enqueue_events)
 
     ASSERT_TRUE(objectUnderTest.hasMore());
 }
+
+TEST(ChannelTests, pops_event_off_the_queue_when_delivering_it)
+{
+    EventPointerHandlerForTesting handler;
+    auto* event = new EventForTesting{7U};
+    Channel objectUnderTest{handler};
+
+    objectUnderTest.handle(event);
+    objectUnderTest.deliverOne();
+
+    ASSERT_FALSE(objectUnderTest.hasMore());
+}

@@ -16,6 +16,11 @@ void Channel::handle(Event* event) {
     _eventQueue.push(event);
 }
 
+void Channel::deliverOne() {
+    delete _eventQueue.front();
+    _eventQueue.pop();
+}
+
 bool Channel::hasMore() const {
     return !_eventQueue.empty();
 }
