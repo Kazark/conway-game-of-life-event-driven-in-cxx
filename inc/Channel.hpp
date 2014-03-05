@@ -5,10 +5,11 @@
 #include "Event.hpp"
 
 namespace EventArchitecture {
-	class Channel : public IHandle<Event*> {
+	class Channel : public IHandle<const Event&> {
 	public:
         Channel(IHandle<Event*>&);
-        void handle(Event*);
+        void handle(const Event&);
+        bool hasMore() const;
 
 	private:
         IHandle<Event*>& _handler;

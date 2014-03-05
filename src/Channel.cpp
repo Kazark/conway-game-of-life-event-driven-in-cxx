@@ -5,5 +5,9 @@ Channel::Channel(IHandle<Event*>& handler) :
     _handler(handler)
 {}
 
-void Channel::handle(Event* event) {
+void Channel::handle(const Event&/* event*/) {
+}
+
+bool Channel::hasMore() const {
+    return false;
 }
