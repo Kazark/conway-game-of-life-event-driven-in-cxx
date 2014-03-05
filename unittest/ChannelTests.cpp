@@ -21,7 +21,7 @@ TEST(ChannelTests, can_enqueue_events)
     EventPointerHandlerForTesting handler;
     Channel objectUnderTest{handler};
 
-    objectUnderTest.handle(new EventForTesting{7U});
+    objectUnderTest.enqueue(new EventForTesting{7U});
 
     ASSERT_TRUE(objectUnderTest.hasMore());
 }
@@ -31,7 +31,7 @@ TEST(ChannelTests, pops_event_off_the_queue_when_delivering_it)
     EventPointerHandlerForTesting handler;
     Channel objectUnderTest{handler};
 
-    objectUnderTest.handle(new EventForTesting{7U});
+    objectUnderTest.enqueue(new EventForTesting{7U});
     objectUnderTest.deliverOne();
 
     ASSERT_FALSE(objectUnderTest.hasMore());
@@ -43,7 +43,7 @@ TEST(ChannelTests, delivers_events)
     auto* event = new EventForTesting{7U};
     Channel objectUnderTest{handler};
 
-    objectUnderTest.handle(event);
+    objectUnderTest.enqueue(event);
     objectUnderTest.deliverOne();
 
     ASSERT_TRUE(handler.handledEventWithId(event->id));
@@ -54,8 +54,8 @@ TEST(ChannelTests, delivers_only_one_event_at_a_time)
     EventPointerHandlerForTesting handler;
     Channel objectUnderTest{handler};
 
-    objectUnderTest.handle(new EventForTesting{7U});
-    objectUnderTest.handle(new EventForTesting{9U});
+    objectUnderTest.enqueue(new EventForTesting{7U});
+    objectUnderTest.enqueue(new EventForTesting{9U});
     objectUnderTest.deliverOne();
 
     ASSERT_TRUE(objectUnderTest.hasMore());
@@ -67,19 +67,19 @@ TEST(ChannelTests, has_FIFO_queueing_discipline)
     auto* event = new EventForTesting{7U};
     Channel objectUnderTest{handler};
 
-    objectUnderTest.handle(event);
-    objectUnderTest.handle(new EventForTesting{9U});
+    objectUnderTest.enqueue(event);
+    objectUnderTest.enqueue(new EventForTesting{9U});
     objectUnderTest.deliverOne();
 
     ASSERT_TRUE(handler.handledEventWithId(event->id));
 }
 
-TEST(ChannelTests, has_a_generic_handler_wrapper)
+TEST(ChannelTests, has_subclass_to_wrap_it_in_a_handler)
 {
     EventPointerHandlerForTesting handler;
     Channel objectUnderTest{handler};
     EventForTesting event{7U};
-    Channel::HandlerWrapper<EventForTesting> handlerWrapper{objectUnderTest};
+    Channel::WrapInHandlerFor<EventForTesting> handlerWrapper{objectUnderTest};
 
     handlerWrapper.handle(event);
     objectUnderTest.deliverOne();

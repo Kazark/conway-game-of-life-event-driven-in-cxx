@@ -12,7 +12,7 @@ Channel::~Channel() {
     };
 }
 
-void Channel::handle(Event* event) {
+void Channel::enqueue(Event* event) {
     _eventQueue.push(event);
 }
 

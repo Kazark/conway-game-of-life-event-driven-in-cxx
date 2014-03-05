@@ -8,20 +8,20 @@
 #include <list>
 
 namespace EventArchitecture {
-	class Channel : public IHandle<Event*> {
+	class Channel {
 	public:
         Channel(IHandle<Event*>&);
         ~Channel();
-        void handle(Event*);
+        void enqueue(Event*);
         void deliverOne();
         bool hasMore() const;
 
         template<class TEvent>
-        class HandlerWrapper : public IHandle<TEvent> {
+        class WrapInHandlerFor : public IHandle<TEvent> {
         public:
-            HandlerWrapper(Channel& channel) : _channel(channel) {}
+            WrapInHandlerFor(Channel& channel) : _channel(channel) {}
             void handle(TEvent event) {
-                _channel.handle(new TEvent(event));
+                _channel.enqueue(new TEvent(event));
             }
         private:
             Channel& _channel;
