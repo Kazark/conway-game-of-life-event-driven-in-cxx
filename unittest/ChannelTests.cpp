@@ -50,3 +50,31 @@ TEST(ChannelTests, delivers_events)
 
     ASSERT_TRUE(handler.handledEventWithId(event->id));
 }
+
+TEST(ChannelTests, delivers_only_one_event_at_a_time)
+{
+    EventPointerHandlerForTesting handler;
+    auto* event1 = new EventForTesting{7U};
+    auto* event2 = new EventForTesting{9U};
+    Channel objectUnderTest{handler};
+
+    objectUnderTest.handle(event1);
+    objectUnderTest.handle(event2);
+    objectUnderTest.deliverOne();
+
+    ASSERT_TRUE(objectUnderTest.hasMore());
+}
+
+TEST(ChannelTests, has_FIFO_queueing_discipline)
+{
+    EventPointerHandlerForTesting handler;
+    auto* event1 = new EventForTesting{7U};
+    auto* event2 = new EventForTesting{9U};
+    Channel objectUnderTest{handler};
+
+    objectUnderTest.handle(event1);
+    objectUnderTest.handle(event2);
+    objectUnderTest.deliverOne();
+
+    ASSERT_TRUE(handler.handledEventWithId(event1->id));
+}
