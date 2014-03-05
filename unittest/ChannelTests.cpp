@@ -16,11 +16,10 @@ TEST(ChannelTests, is_empty_on_initialization)
     ASSERT_FALSE(objectUnderTest.hasMore());
 }
 
-TEST(ChannelTests, DISABLED_test)
+TEST(ChannelTests, can_enqueue_events)
 {
     EventPointerHandlerForTesting handler;
-    EventForTesting event{7U};
-
+    auto* event = new EventForTesting{7U};
     Channel objectUnderTest{handler};
 
     objectUnderTest.handle(event);

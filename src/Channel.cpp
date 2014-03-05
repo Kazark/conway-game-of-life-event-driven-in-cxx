@@ -5,9 +5,17 @@ Channel::Channel(IHandle<Event*>& handler) :
     _handler(handler)
 {}
 
-void Channel::handle(const Event&/* event*/) {
+Channel::~Channel() {
+    while (hasMore()) {
+        delete _eventQueue.front();
+        _eventQueue.pop();
+    };
+}
+
+void Channel::handle(Event* event) {
+    _eventQueue.push(event);
 }
 
 bool Channel::hasMore() const {
-    return false;
+    return !_eventQueue.empty();
 }

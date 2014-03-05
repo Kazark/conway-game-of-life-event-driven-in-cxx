@@ -4,15 +4,20 @@
 #include "IHandle.hpp"
 #include "Event.hpp"
 
+#include <queue>
+#include <list>
+
 namespace EventArchitecture {
-	class Channel : public IHandle<const Event&> {
+	class Channel : public IHandle<Event*> {
 	public:
         Channel(IHandle<Event*>&);
-        void handle(const Event&);
+        ~Channel();
+        void handle(Event*);
         bool hasMore() const;
 
 	private:
         IHandle<Event*>& _handler;
+        std::queue<Event*, std::list<Event*>> _eventQueue;
 	};
 }
 #endif
