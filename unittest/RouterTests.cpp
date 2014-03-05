@@ -14,7 +14,7 @@ TEST(RouterTests, registers_and_invokes_handlers)
     Router objectUnderTest;
 
     objectUnderTest.registerHandler(handler);
-    objectUnderTest.invokeHandler(static_cast<Event*>(&event));
+    objectUnderTest.handle(static_cast<Event*>(&event));
 
     ASSERT_TRUE(handler.handledEventWithId(event.id));
 }

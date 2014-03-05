@@ -10,7 +10,7 @@
 #include <typeindex>
 
 namespace EventArchitecture {
-	class Router {
+	class Router: public IHandle<Event*> {
 	public:
         ~Router() {
             for (auto pair : registry) {
@@ -24,7 +24,7 @@ namespace EventArchitecture {
             registry[typeid(TEvent)] = new Unpackager<TEvent>(handler);
         }
 
-        void invokeHandler(Event* event) const
+        void handle(Event* event)
         {
             auto unpackager = registry.at(std::type_index(typeid(*event)));
             unpackager->invokeHandler(event);
