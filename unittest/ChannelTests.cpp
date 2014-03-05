@@ -73,3 +73,16 @@ TEST(ChannelTests, has_FIFO_queueing_discipline)
 
     ASSERT_TRUE(handler.handledEventWithId(event->id));
 }
+
+TEST(ChannelTests, has_a_generic_handler_wrapper)
+{
+    EventPointerHandlerForTesting handler;
+    Channel objectUnderTest{handler};
+    EventForTesting event{7U};
+    Channel::HandlerWrapper<EventForTesting> handlerWrapper{objectUnderTest};
+
+    handlerWrapper.handle(event);
+    objectUnderTest.deliverOne();
+
+    ASSERT_TRUE(handler.handledEventWithId(event.id));
+}
