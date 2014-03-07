@@ -8,6 +8,13 @@ namespace ConwayGameOfLife {
 	public:
         NeighboringPositions(CartesianPosition);
         CartesianPosition northern() const;
+        CartesianPosition northeastern() const;
+        CartesianPosition eastern() const;
+        CartesianPosition southeastern() const;
+        CartesianPosition southern() const;
+        CartesianPosition southwestern() const;
+        CartesianPosition western() const;
+        CartesianPosition northwestern() const;
 
 	private:
         CartesianPosition my;
