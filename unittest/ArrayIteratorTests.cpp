@@ -28,7 +28,7 @@ TEST(ArrayIteratorTests, can_iterate)
 {
     std::vector<int> results;
     int array[3] = {1, 3, 2};
-    ArrayIterator<int, ArrayForTests> iterator{ArrayForTests<int>{array, 3}};
+    ArrayIterator<int, ArrayForTests<int>> iterator{ArrayForTests<int>{array, 3}};
     for (auto element : iterator) {
         results.push_back(element);
     }

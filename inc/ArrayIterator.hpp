@@ -1,14 +1,14 @@
 #ifndef _OOG_CORE_ARRAYITERATOR_HPP_
 #define _OOG_CORE_ARRAYITERATOR_HPP_
 namespace ConwayGameOfLife {
-    template<typename TElement, template<typename> class TArray>
+    template<typename TElement, class TArray>
 	class ArrayIterator {
 	public:
-        ArrayIterator(TArray<TElement> array) : array(array) {}
+        ArrayIterator(TArray array) : array(array) {}
 
         class const_iterator {
         public:
-            const_iterator(const TArray<TElement>* arrayPtr, int index) :
+            const_iterator(const TArray* arrayPtr, int index) :
                 arrayPtr(arrayPtr),
                 index(index)
             {}
@@ -24,7 +24,7 @@ namespace ConwayGameOfLife {
                 return (*arrayPtr)[index];
             }
         private:
-            const TArray<TElement>* arrayPtr;
+            const TArray* arrayPtr;
             int index;
         };
 
@@ -35,7 +35,7 @@ namespace ConwayGameOfLife {
             return const_iterator(nullptr, array.length());
         }
 	private:
-        TArray<TElement> array;
+        TArray array;
 	};
 }
 #endif
