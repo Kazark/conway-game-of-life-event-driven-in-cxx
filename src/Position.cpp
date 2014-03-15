@@ -11,6 +11,11 @@ bool Position::operator==(const Position& that) const {
     return this->_x == that._x && this->_y == that._y;
 }
 
+bool Position::operator!=(const Position& that) const {
+    return !(*this == that);
+}
+
+
 Position::InGrid::InGrid(const Position& position, int gridSize) :
     _position(position),
     _gridSize(gridSize)

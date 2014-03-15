@@ -7,6 +7,7 @@ namespace ConwayGameOfLife {
         Position(int x, int y);
 
         bool operator==(const Position&) const;
+        bool operator!=(const Position&) const;
 
         int x() const;
         int y() const;
