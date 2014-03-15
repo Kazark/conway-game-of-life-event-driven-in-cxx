@@ -2,14 +2,14 @@
 #define _EVENTARCHITECTURE_CHANNEL_HPP_
 
 #include "IHandle.hpp"
+#include "InputChannel.hpp"
 #include "OutputChannel.hpp"
-#include "Event.hpp"
 
 #include <queue>
 #include <list>
 
 namespace EventArchitecture {
-	class Channel : public OutputChannel {
+	class Channel : public InputChannel, public OutputChannel {
 	public:
         Channel(IHandle<Event*>&);
         ~Channel();
