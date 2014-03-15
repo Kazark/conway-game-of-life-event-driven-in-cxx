@@ -16,13 +16,14 @@ namespace ConwayGameOfLife {
         public:
             Position fromScalar(int) const;
             int toScalar() const;
+            bool isOutOfBounds() const;
 
         private:
             InGrid(const Position&, int);
             friend class Position;
 
             const Position& _position;
-            int _gridSize;
+            const int _gridSize;
         };
 
         InGrid inGridOfSize(int) const;

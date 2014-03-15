@@ -36,3 +36,10 @@ Position Position::InGrid::fromScalar(int scalar) const {
 int Position::InGrid::toScalar() const {
     return _position.y() * _gridSize + _position.x();
 }
+
+bool Position::InGrid::isOutOfBounds() const {
+    return _position.x() < 0 ||
+           _position.x() >= _gridSize ||
+           _position.y() < 0 ||
+           _position.y() >= _gridSize;
+}

@@ -28,3 +28,13 @@ TEST(PositionTests, can_convert_itself_to_a_scalar_relative_to_a_grid)
     auto scalar = Position(2, 3).inGridOfSize(5).toScalar();
     EXPECT_EQ(17, scalar);
 }
+
+TEST(PositionTests, can_determine_whether_it_is_out_of_bounds_with_respect_to_give_grid)
+{
+    EXPECT_TRUE(Position(-1, 0).inGridOfSize(2).isOutOfBounds());
+    EXPECT_TRUE(Position(0, -1).inGridOfSize(2).isOutOfBounds());
+    EXPECT_FALSE(Position(0, 0).inGridOfSize(2).isOutOfBounds());
+    EXPECT_FALSE(Position(1, 1).inGridOfSize(2).isOutOfBounds());
+    EXPECT_TRUE(Position(2, 0).inGridOfSize(2).isOutOfBounds());
+    EXPECT_TRUE(Position(0, 2).inGridOfSize(2).isOutOfBounds());
+}
