@@ -3,6 +3,8 @@
 #include "NeighboringPositions.hpp"
 using namespace ::ConwayGameOfLife;
 
+#include <algorithm>
+
 class NeighboringPositionsTests : public ::testing::Test {
 public:
     NeighboringPositionsTests() :
@@ -52,4 +54,15 @@ TEST_F(NeighboringPositionsTests, knows_the_position_of_the_cell_one_unit_west)
 TEST_F(NeighboringPositionsTests, knows_the_position_of_the_cell_one_unit_north_and_one_unit_west)
 {
     ASSERT_EQ(Position(2, -1), objectUnderTest.northwestern());
+}
+
+TEST_F(NeighboringPositionsTests, has_an_iterator)
+{
+    int count = 0;
+    for (auto neighbor : objectUnderTest.iterator())
+    {
+        EXPECT_NE(position, neighbor);
+        count++;
+    }
+    ASSERT_EQ(8, count);
 }

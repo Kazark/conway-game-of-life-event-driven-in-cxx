@@ -2,6 +2,7 @@
 #define _CONWAYGAMEOFLIFE_NEIGHBORINGPOSITIONS_HPP_
 
 #include "Position.hpp"
+#include <array>
 
 namespace ConwayGameOfLife {
 	class NeighboringPositions {
@@ -15,6 +16,8 @@ namespace ConwayGameOfLife {
         Position southwestern() const;
         Position western() const;
         Position northwestern() const;
+
+        std::array<Position, 8> iterator() const;
 
 	private:
         Position my;

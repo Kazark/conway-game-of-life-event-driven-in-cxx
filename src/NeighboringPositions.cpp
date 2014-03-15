@@ -44,3 +44,14 @@ Position NeighboringPositions::northwestern() const
 {
     return Position(my.x() - 1, my.y() - 1);
 }
+
+std::array<Position, 8> NeighboringPositions::iterator() const {
+    return {{ northern(),
+              northeastern(),
+              eastern(),
+              southeastern(),
+              southern(),
+              southwestern(),
+              western(),
+              northwestern() }};
+}
