@@ -11,7 +11,11 @@ namespace ConwayGameOfLife {
 	class Grid {
 	public:
         Grid(std::vector<bool>);
+
         ArrayIterator<const Cell&, Grid> iterator() const;
+
+        int size() const;
+        
 	private:
         const Cell& operator[](int) const;
         int length() const;

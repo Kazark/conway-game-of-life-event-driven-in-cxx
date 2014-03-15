@@ -27,7 +27,12 @@ const Cell& Grid::operator[](int i) const
     return _gridData[i];
 }
 
+int Grid::size() const
+{
+    return _size;
+}
+
 int Grid::length() const
 {
-    return (int)_gridData.size(); // TODO test-drive this contant out of here!
+    return _length;
 }
