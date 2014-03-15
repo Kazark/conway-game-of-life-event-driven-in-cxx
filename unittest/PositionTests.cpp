@@ -22,3 +22,9 @@ TEST(PositionTests, can_create_a_position_relative_to_a_grid_of_certain_size_fro
     auto position = Position::InGridOfSize(3).fromScalar(6);
     EXPECT_EQ(Position(0, 2), position);
 }
+
+TEST(PositionTests, can_convert_itself_to_a_scalar_relative_to_a_grid)
+{
+    auto scalar = Position(2, 3).inGridOfSize(5).toScalar();
+    EXPECT_EQ(17, scalar);
+}

@@ -29,6 +29,10 @@ Position::InGrid Position::InGridOfSize(int size) {
     return InGrid(Position(), size);
 }
 
-Position Position::InGrid::fromScalar(int scalar) {
+Position Position::InGrid::fromScalar(int scalar) const {
     return Position(scalar % _gridSize, scalar / _gridSize);
+}
+
+int Position::InGrid::toScalar() const {
+    return _position.y() * _gridSize + _position.x();
 }

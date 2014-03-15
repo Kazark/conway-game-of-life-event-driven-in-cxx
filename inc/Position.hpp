@@ -14,7 +14,8 @@ namespace ConwayGameOfLife {
 
         class InGrid {
         public:
-            Position fromScalar(int);
+            Position fromScalar(int) const;
+            int toScalar() const;
 
         private:
             InGrid(const Position&, int);
