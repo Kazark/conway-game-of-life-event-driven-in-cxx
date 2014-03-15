@@ -10,7 +10,7 @@ Grid::Grid(std::vector<bool> data) :
     {
         Cell cell(this);
         cell.isLiving = data[i];
-        cell.location = CartesianPosition(i % length, i / length);
+        cell.position = CartesianPosition(i % length, i / length);
         _gridData[i] = cell;
     }
 }

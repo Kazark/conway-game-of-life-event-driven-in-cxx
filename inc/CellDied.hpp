@@ -6,7 +6,7 @@
 
 namespace ConwayGameOfLife {
 	struct CellDied : public ::EventArchitecture::Event {
-        CartesianPosition location;
+        CartesianPosition position;
 	};
 }
 #endif

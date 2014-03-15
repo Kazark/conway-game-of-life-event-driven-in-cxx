@@ -11,7 +11,7 @@ namespace ConwayGameOfLife {
         Cell(Grid*);
         //void neighbors() const;
         bool isLiving;
-        CartesianPosition location;
+        CartesianPosition position;
 	private:
         Grid* _grid;
 	};
