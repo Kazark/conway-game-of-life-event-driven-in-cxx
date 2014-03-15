@@ -1,14 +1,14 @@
-#include "LivingNeighborsOfDeadCellCountedHandler.hpp"
+#include "DetermineNextStateOfDeadCell.hpp"
 using namespace ::ConwayGameOfLife;
 
-LivingNeighborsOfDeadCellCountedHandler::LivingNeighborsOfDeadCellCountedHandler(
+DetermineNextStateOfDeadCell::DetermineNextStateOfDeadCell(
     IHandle<CellLived>& cellLivedHandler,
     IHandle<CellDied>& cellDiedHandler) :
     _cellLivedHandler(cellLivedHandler),
     _cellDiedHandler(cellDiedHandler)
 {}
 
-void LivingNeighborsOfDeadCellCountedHandler::handle(LivingNeighborsOfDeadCellCounted inEvent)
+void DetermineNextStateOfDeadCell::handle(LivingNeighborsOfDeadCellCounted inEvent)
 {
     if (inEvent.numberOfLivingNeighbors == 3)
     {
@@ -20,14 +20,14 @@ void LivingNeighborsOfDeadCellCountedHandler::handle(LivingNeighborsOfDeadCellCo
     }
 }
 
-void LivingNeighborsOfDeadCellCountedHandler::cellComesToLifeAt(CartesianPosition location) const
+void DetermineNextStateOfDeadCell::cellComesToLifeAt(CartesianPosition location) const
 {
     CellLived outEvent;
     outEvent.location = location;
     _cellLivedHandler.handle(outEvent);
 }
 
-void LivingNeighborsOfDeadCellCountedHandler::cellRemainsDeadAt(CartesianPosition location) const
+void DetermineNextStateOfDeadCell::cellRemainsDeadAt(CartesianPosition location) const
 {
     CellDied outEvent;
     outEvent.location = location;

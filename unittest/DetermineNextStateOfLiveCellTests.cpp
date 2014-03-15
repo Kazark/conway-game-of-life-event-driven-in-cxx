@@ -1,13 +1,13 @@
 #include "gtest/gtest.h"
 
-#include "LivingNeighborsOfLiveCellCountedHandler.hpp"
+#include "DetermineNextStateOfLiveCell.hpp"
 using namespace ::ConwayGameOfLife;
 
 #include "MockHandler.hpp"
 
-struct LivingNeighborsOfLiveCellCountedHandlerTests: public ::testing::Test
+struct DetermineNextStateOfLiveCellTests: public ::testing::Test
 {
-    LivingNeighborsOfLiveCellCountedHandlerTests() :
+    DetermineNextStateOfLiveCellTests() :
         cellDiedHandler(),
         cellLivedHandler(),
         objectUnderTest(cellLivedHandler, cellDiedHandler)
@@ -16,10 +16,10 @@ struct LivingNeighborsOfLiveCellCountedHandlerTests: public ::testing::Test
 
     MockHandler<CellDied> cellDiedHandler;
     MockHandler<CellLived> cellLivedHandler;
-    LivingNeighborsOfLiveCellCountedHandler objectUnderTest;
+    DetermineNextStateOfLiveCell objectUnderTest;
 };
 
-TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Live_cell_dies_with_less_than_two_living_neighbors)
+TEST_F(DetermineNextStateOfLiveCellTests, Live_cell_dies_with_less_than_two_living_neighbors)
 {
     LivingNeighborsOfLiveCellCounted event;
     event.numberOfLivingNeighbors = 1;
@@ -30,7 +30,7 @@ TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Live_cell_dies_with_less_th
     EXPECT_FALSE(cellLivedHandler.wasCalled);
 }
 
-TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Live_cell_with_two_living_neighbors_stays_alive)
+TEST_F(DetermineNextStateOfLiveCellTests, Live_cell_with_two_living_neighbors_stays_alive)
 {
     LivingNeighborsOfLiveCellCounted event;
     event.numberOfLivingNeighbors = 2;
@@ -41,7 +41,7 @@ TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Live_cell_with_two_living_n
     EXPECT_TRUE(cellLivedHandler.wasCalled);
 }
 
-TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Live_cell_with_three_living_neighbors_stays_alive)
+TEST_F(DetermineNextStateOfLiveCellTests, Live_cell_with_three_living_neighbors_stays_alive)
 {
     LivingNeighborsOfLiveCellCounted event;
     event.numberOfLivingNeighbors = 3;
@@ -52,7 +52,7 @@ TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Live_cell_with_three_living
     EXPECT_TRUE(cellLivedHandler.wasCalled);
 }
 
-TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Living_cell_with_more_than_three_living_neighbors_dies)
+TEST_F(DetermineNextStateOfLiveCellTests, Living_cell_with_more_than_three_living_neighbors_dies)
 {
     LivingNeighborsOfLiveCellCounted event;
     event.numberOfLivingNeighbors = 4;
@@ -63,7 +63,7 @@ TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Living_cell_with_more_than_
     EXPECT_FALSE(cellLivedHandler.wasCalled);
 }
 
-TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Position_published_when_cell_dies)
+TEST_F(DetermineNextStateOfLiveCellTests, Position_published_when_cell_dies)
 {
     LivingNeighborsOfLiveCellCounted event;
     event.numberOfLivingNeighbors = 8;
@@ -74,7 +74,7 @@ TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Position_published_when_cel
     ASSERT_EQ(event.cellLocation, cellDiedHandler.handledEvent.location);
 }
 
-TEST_F(LivingNeighborsOfLiveCellCountedHandlerTests, Position_published_when_cell_remains_alive)
+TEST_F(DetermineNextStateOfLiveCellTests, Position_published_when_cell_remains_alive)
 {
     LivingNeighborsOfLiveCellCounted event;
     event.numberOfLivingNeighbors = 3;

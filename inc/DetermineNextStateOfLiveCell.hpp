@@ -7,9 +7,9 @@
 #include "CellDied.hpp"
 
 namespace ConwayGameOfLife {
-	class LivingNeighborsOfLiveCellCountedHandler: public EventArchitecture::IHandle<LivingNeighborsOfLiveCellCounted> {
+	class DetermineNextStateOfLiveCell: public EventArchitecture::IHandle<LivingNeighborsOfLiveCellCounted> {
 	public:
-        LivingNeighborsOfLiveCellCountedHandler(IHandle<CellLived>&, IHandle<CellDied>&);
+        DetermineNextStateOfLiveCell(IHandle<CellLived>&, IHandle<CellDied>&);
         void handle(LivingNeighborsOfLiveCellCounted);
 	private:
         void cellDiesAt(CartesianPosition) const;
