@@ -18,6 +18,8 @@ namespace ConwayGameOfLife {
 
         friend class ArrayIterator<const Cell&, Grid>;
 
+        int _size;
+        int _length;
         std::vector<Cell> _gridData;
 	};
 }

@@ -1,16 +1,18 @@
 #include "Grid.hpp"
 #include "Cell.hpp"
 using namespace ::ConwayGameOfLife;
+#include <cmath>
 
 Grid::Grid(std::vector<bool> data) :
-    _gridData(data.size())
+    _size(sqrt(data.size())),
+    _length(_size*_size),
+    _gridData(_length)
 {
-    auto length = _gridData.size();
-    for (auto i = 0U; i < length; i++)
+    for (auto i = 0; i < _length; i++)
     {
         Cell cell(this);
         cell.isLiving = data[i];
-        cell.position = Position(i % length, i / length);
+        cell.position = Position::InGridOfSize(_size).fromScalar(i);
         _gridData[i] = cell;
     }
 }
