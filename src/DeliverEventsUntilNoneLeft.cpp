@@ -1,7 +1,7 @@
 #include "DeliverEventsUntilNoneLeft.hpp"
 using namespace ::EventArchitecture;
 
-DeliverEventsUntilNoneLeft::DeliverEventsUntilNoneLeft(Channel& channel) :
+DeliverEventsUntilNoneLeft::DeliverEventsUntilNoneLeft(OutputChannel& channel) :
     _channel(channel)
 {}
 

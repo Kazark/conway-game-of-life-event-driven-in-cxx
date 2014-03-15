@@ -1,15 +1,15 @@
 #ifndef _EVENTARCHITECTURE_DELIVEREVENTSUNTILNONELEFT_HPP_
 #define _EVENTARCHITECTURE_DELIVEREVENTSUNTILNONELEFT_HPP_
 
-#include "Channel.hpp"
+#include "OutputChannel.hpp"
 
 namespace EventArchitecture {
 	class DeliverEventsUntilNoneLeft {
 	public:
-        DeliverEventsUntilNoneLeft(Channel&);
+        DeliverEventsUntilNoneLeft(OutputChannel&);
         void run();
 	private:
-        Channel& _channel;
+        OutputChannel& _channel;
 	};
 }
 #endif

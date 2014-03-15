@@ -2,6 +2,7 @@
 
 // Code under test
 #include "DeliverEventsUntilNoneLeft.hpp"
+#include "Channel.hpp"
 using namespace ::EventArchitecture;
 
 // Testing code
