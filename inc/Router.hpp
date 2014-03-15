@@ -26,7 +26,7 @@ namespace EventArchitecture {
 
         void handle(Event* event)
         {
-            auto unpackager = registry.at(std::type_index(typeid(*event)));
+            auto unpackager = registry.at(typeid(*event));
             unpackager->invokeHandler(event);
         }
 
