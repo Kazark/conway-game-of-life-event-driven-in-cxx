@@ -1,23 +1,23 @@
 #ifndef _CONWAYGAMEOFLIFE_NEIGHBORINGPOSITIONS_HPP_
 #define _CONWAYGAMEOFLIFE_NEIGHBORINGPOSITIONS_HPP_
 
-#include "CartesianPosition.hpp"
+#include "Position.hpp"
 
 namespace ConwayGameOfLife {
 	class NeighboringPositions {
 	public:
-        NeighboringPositions(CartesianPosition);
-        CartesianPosition northern() const;
-        CartesianPosition northeastern() const;
-        CartesianPosition eastern() const;
-        CartesianPosition southeastern() const;
-        CartesianPosition southern() const;
-        CartesianPosition southwestern() const;
-        CartesianPosition western() const;
-        CartesianPosition northwestern() const;
+        NeighboringPositions(Position);
+        Position northern() const;
+        Position northeastern() const;
+        Position eastern() const;
+        Position southeastern() const;
+        Position southern() const;
+        Position southwestern() const;
+        Position western() const;
+        Position northwestern() const;
 
 	private:
-        CartesianPosition my;
+        Position my;
 	};
 }
 #endif

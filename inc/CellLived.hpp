@@ -1,12 +1,12 @@
 #ifndef _CONWAYGAMEOFLIFE_CELLLIVED_HPP_
 #define _CONWAYGAMEOFLIFE_CELLLIVED_HPP_
 
-#include "CartesianPosition.hpp"
+#include "Position.hpp"
 #include "Event.hpp"
 
 namespace ConwayGameOfLife {
 	struct CellLived : public ::EventArchitecture::Event {
-        CartesianPosition position;
+        Position position;
 	};
 }
 #endif

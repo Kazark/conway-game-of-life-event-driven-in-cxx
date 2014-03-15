@@ -1,7 +1,7 @@
 #ifndef _CONWAYGAMEOFLIFE_CELL_HPP_
 #define _CONWAYGAMEOFLIFE_CELL_HPP_
 
-#include "CartesianPosition.hpp"
+#include "Position.hpp"
 
 namespace ConwayGameOfLife {
     class Grid;
@@ -11,7 +11,7 @@ namespace ConwayGameOfLife {
         Cell(Grid*);
         //void neighbors() const;
         bool isLiving;
-        CartesianPosition position;
+        Position position;
 	private:
         Grid* _grid;
 	};

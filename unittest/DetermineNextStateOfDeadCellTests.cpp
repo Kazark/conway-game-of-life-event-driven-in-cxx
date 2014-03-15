@@ -56,7 +56,7 @@ TEST_F(DetermineNextStateOfDeadCellTests, Position_published_when_cell_remains_d
 {
     LivingNeighborsOfDeadCellCounted event;
     event.numberOfLivingNeighbors = 0;
-    event.cellLocation = CartesianPosition(1, 2);
+    event.cellLocation = Position(1, 2);
 
     objectUnderTest.handle(event);
 
@@ -67,7 +67,7 @@ TEST_F(DetermineNextStateOfDeadCellTests, Position_published_when_cell_comes_to_
 {
     LivingNeighborsOfDeadCellCounted event;
     event.numberOfLivingNeighbors = 3;
-    event.cellLocation = CartesianPosition(1, 2);
+    event.cellLocation = Position(1, 2);
 
     objectUnderTest.handle(event);
 

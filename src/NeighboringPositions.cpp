@@ -1,46 +1,46 @@
 #include "NeighboringPositions.hpp"
 using namespace ::ConwayGameOfLife;
 
-NeighboringPositions::NeighboringPositions(CartesianPosition position) :
+NeighboringPositions::NeighboringPositions(Position position) :
     my(position)
 {}
 
-CartesianPosition NeighboringPositions::northern() const
+Position NeighboringPositions::northern() const
 {
-    return CartesianPosition(my.x, my.y - 1);
+    return Position(my.x, my.y - 1);
 }
 
-CartesianPosition NeighboringPositions::northeastern() const
+Position NeighboringPositions::northeastern() const
 {
-    return CartesianPosition(my.x + 1, my.y - 1);
+    return Position(my.x + 1, my.y - 1);
 }
 
-CartesianPosition NeighboringPositions::eastern() const
+Position NeighboringPositions::eastern() const
 {
-    return CartesianPosition(my.x + 1, my.y);
+    return Position(my.x + 1, my.y);
 }
 
-CartesianPosition NeighboringPositions::southeastern() const
+Position NeighboringPositions::southeastern() const
 {
-    return CartesianPosition(my.x + 1, my.y + 1);
+    return Position(my.x + 1, my.y + 1);
 }
 
-CartesianPosition NeighboringPositions::southern() const
+Position NeighboringPositions::southern() const
 {
-    return CartesianPosition(my.x, my.y + 1);
+    return Position(my.x, my.y + 1);
 }
 
-CartesianPosition NeighboringPositions::southwestern() const
+Position NeighboringPositions::southwestern() const
 {
-    return CartesianPosition(my.x - 1, my.y + 1);
+    return Position(my.x - 1, my.y + 1);
 }
 
-CartesianPosition NeighboringPositions::western() const
+Position NeighboringPositions::western() const
 {
-    return CartesianPosition(my.x - 1, my.y);
+    return Position(my.x - 1, my.y);
 }
 
-CartesianPosition NeighboringPositions::northwestern() const
+Position NeighboringPositions::northwestern() const
 {
-    return CartesianPosition(my.x - 1, my.y - 1);
+    return Position(my.x - 1, my.y - 1);
 }

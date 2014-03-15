@@ -20,14 +20,14 @@ void DetermineNextStateOfDeadCell::handle(LivingNeighborsOfDeadCellCounted inEve
     }
 }
 
-void DetermineNextStateOfDeadCell::cellComesToLifeAt(CartesianPosition position) const
+void DetermineNextStateOfDeadCell::cellComesToLifeAt(Position position) const
 {
     CellLived outEvent;
     outEvent.position = position;
     _cellLivedHandler.handle(outEvent);
 }
 
-void DetermineNextStateOfDeadCell::cellRemainsDeadAt(CartesianPosition position) const
+void DetermineNextStateOfDeadCell::cellRemainsDeadAt(Position position) const
 {
     CellDied outEvent;
     outEvent.position = position;
