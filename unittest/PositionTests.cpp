@@ -16,3 +16,9 @@ TEST(PositionTests, has_x_and_y_accessors)
     EXPECT_EQ(1, Position(1, 2).x());
     EXPECT_EQ(2, Position(1, 2).y());
 }
+
+TEST(PositionTests, can_create_a_position_relative_to_a_grid_of_certain_size_from_a_scalar)
+{
+    auto position = Position::InGridOfSize(3).fromScalar(6);
+    EXPECT_EQ(Position(0, 2), position);
+}
