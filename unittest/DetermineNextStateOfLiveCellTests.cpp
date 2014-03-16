@@ -71,7 +71,7 @@ TEST_F(DetermineNextStateOfLiveCellTests, Position_published_when_cell_dies)
 
     objectUnderTest.handle(event);
 
-    ASSERT_EQ(event.cellLocation, cellDiedHandler.handledEvent.position);
+    ASSERT_EQ(event.cellLocation, cellDiedHandler.handledEvents[0].position);
 }
 
 TEST_F(DetermineNextStateOfLiveCellTests, Position_published_when_cell_remains_alive)
@@ -82,5 +82,5 @@ TEST_F(DetermineNextStateOfLiveCellTests, Position_published_when_cell_remains_a
 
     objectUnderTest.handle(event);
 
-    ASSERT_EQ(event.cellLocation, cellLivedHandler.handledEvent.position);
+    ASSERT_EQ(event.cellLocation, cellLivedHandler.handledEvents[0].position);
 }

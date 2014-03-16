@@ -3,21 +3,19 @@
 
 // Production code
 #include "IHandle.hpp"
-// Testing code
-#include "EventForTesting.hpp"
 // C++
-#include <unordered_set>
+#include <vector>
 
 template<typename TEvent>
-class MockHandler: public EventArchitecture::IHandle<TEvent> {
+class MockHandler: public ::EventArchitecture::IHandle<TEvent> {
 public:
     void handle(TEvent eventData)
     {
-        handledEvent = eventData;
+        handledEvents.push_back(eventData);
         wasCalled = true;
     }
 
     bool wasCalled;
-    TEvent handledEvent;
+    std::vector<TEvent> handledEvents;
 };
 #endif
