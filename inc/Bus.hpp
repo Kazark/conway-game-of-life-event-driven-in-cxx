@@ -4,6 +4,7 @@
 #include "Channel.hpp"
 #include "Router.hpp"
 #include "IPublish.hpp"
+#include "CopyObjectToHeapFromConstRefOfType.hpp"
 
 #include <functional>
 #include <unordered_map>
@@ -17,9 +18,7 @@ namespace EventArchitecture {
         void registerHandler(IHandle<TEvent>& handler)
         {
             _eventRouter.registerHandler(handler);
-            _copiers[typeid(TEvent)] = [&](const Event& event) {
-                return new TEvent(static_cast<const TEvent&>(event));
-            };
+            _copiers[typeid(TEvent)] = CopyObjectToHeapFromConstRefOfType<TEvent>();
         }
 
         void publish(const Event&);
