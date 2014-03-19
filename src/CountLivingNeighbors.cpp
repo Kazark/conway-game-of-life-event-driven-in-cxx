@@ -1,20 +1,20 @@
 #include "CountLivingNeighbors.hpp"
+#include "LivingNeighborsOfDeadCellCounted.hpp"
+#include "LivingNeighborsOfLiveCellCounted.hpp"
 using namespace ::ConwayGameOfLife;
 using namespace ::EventArchitecture;
 
-CountLivingNeighbors::CountLivingNeighbors(IHandle<LivingNeighborsOfLiveCellCounted>& liveHandler,
-                                           IHandle<LivingNeighborsOfDeadCellCounted>& deadHandler) :
-    _liveCellEventHandler(liveHandler),
-    _deadCellEventHandler(deadHandler)
+CountLivingNeighbors::CountLivingNeighbors(IPublish& bus) :
+    _bus(bus)
 {
 }
 
 void CountLivingNeighbors::handle(GenerationCompleted event) {
     for (auto cell : event.grid.iterator()) {
         if (cell.isLiving) {
-            _liveCellEventHandler.handle(LivingNeighborsOfLiveCellCounted());
+            _bus.publish(LivingNeighborsOfLiveCellCounted());
         } else {
-            _deadCellEventHandler.handle(LivingNeighborsOfDeadCellCounted());
+            _bus.publish(LivingNeighborsOfDeadCellCounted());
         }
     }
 }
