@@ -1,7 +1,7 @@
 #include "Channel.hpp"
 using namespace ::EventArchitecture;
 
-Channel::Channel(IHandle<Event*>& handler) :
+Channel::Channel(IHandle<const Event*>& handler) :
     _handler(handler)
 {}
 

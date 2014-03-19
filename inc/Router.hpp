@@ -10,7 +10,7 @@
 #include <typeindex>
 
 namespace EventArchitecture {
-	class Router: public IHandle<Event*> {
+	class Router: public IHandle<const Event*> {
 	public:
         ~Router() {
             for (auto pair : registry) {
@@ -23,17 +23,22 @@ namespace EventArchitecture {
         {
             registry[typeid(TEvent)] = new Unpackager<TEvent>(handler);
         }
-
-        void handle(Event* event)
+        
+        void invokeHandler(const Event* event)
         {
             auto unpackager = registry.at(typeid(*event));
             unpackager->invokeHandler(event);
         }
 
+        void handle(const Event* event)
+        {
+            invokeHandler(event);
+        }
+
 	private:
         class IUnpackage {
         public:
-            virtual void invokeHandler(Event*) const = 0;
+            virtual void invokeHandler(const Event*) const = 0;
         };
 
         friend class std::unordered_map<std::type_index, IUnpackage*>;
@@ -46,8 +51,8 @@ namespace EventArchitecture {
                 _handler(handler)
             {}
 
-            void invokeHandler(Event* event) const {
-                auto unpackagedEvent = static_cast<TEvent*>(event);
+            void invokeHandler(const Event* event) const {
+                auto unpackagedEvent = static_cast<const TEvent*>(event);
                 _handler.handle(*unpackagedEvent);
             }
         private:

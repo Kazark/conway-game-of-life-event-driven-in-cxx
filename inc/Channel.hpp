@@ -11,17 +11,17 @@
 namespace EventArchitecture {
 	class Channel : public InputChannel, public OutputChannel {
 	public:
-        Channel(IHandle<Event*>&);
+        Channel(IHandle<const Event*>&);
         ~Channel();
         void enqueue(Event*);
         void deliverOne();
         bool hasMore() const;
 
         template<class TEvent>
-        class WrapInHandlerFor : public IHandle<TEvent> {
+        class WrapInHandlerFor : public IHandle<const TEvent&> {
         public:
             WrapInHandlerFor(Channel& channel) : _channel(channel) {}
-            void handle(TEvent event) {
+            void handle(const TEvent& event) {
                 _channel.enqueue(new TEvent(event));
             }
         private:
@@ -29,7 +29,7 @@ namespace EventArchitecture {
         };
 
 	private:
-        IHandle<Event*>& _handler;
+        IHandle<const Event*>& _handler;
         std::queue<Event*, std::list<Event*>> _eventQueue;
 	};
 }
