@@ -73,16 +73,3 @@ TEST(ChannelTests, has_FIFO_queueing_discipline)
 
     ASSERT_TRUE(handler.handledEventWithId(event->id));
 }
-
-TEST(ChannelTests, has_subclass_to_wrap_it_in_a_handler)
-{
-    EventPointerHandlerForTesting handler;
-    Channel objectUnderTest{handler};
-    EventForTesting event{7U};
-    Channel::WrapInHandlerFor<EventForTesting> handlerWrapper{objectUnderTest};
-
-    handlerWrapper.handle(event);
-    objectUnderTest.deliverOne();
-
-    ASSERT_TRUE(handler.handledEventWithId(event.id));
-}

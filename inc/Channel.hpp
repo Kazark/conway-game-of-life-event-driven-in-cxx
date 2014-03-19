@@ -17,17 +17,6 @@ namespace EventArchitecture {
         void deliverOne();
         bool hasMore() const;
 
-        template<class TEvent>
-        class WrapInHandlerFor : public IHandle<const TEvent&> {
-        public:
-            WrapInHandlerFor(Channel& channel) : _channel(channel) {}
-            void handle(const TEvent& event) {
-                _channel.enqueue(new TEvent(event));
-            }
-        private:
-            Channel& _channel;
-        };
-
 	private:
         IHandle<const Event*>& _handler;
         std::queue<Event*, std::list<Event*>> _eventQueue;
