@@ -1,3 +1,6 @@
+#ifndef _PUBLISHERMOCK_HPP_
+#define _PUBLISHERMOCK_HPP_
+
 #include "IPublish.hpp"
 #include <vector>
 #include <algorithm>
@@ -5,7 +8,7 @@
 
 class PublisherMock: public ::EventArchitecture::IPublish {
 public:
-    void publish(const ::EventArchitecture::Event& event) {
+    virtual void publish(const ::EventArchitecture::Event& event) {
         _publishedEventTypes.push_back(typeid(event));
     }
 
@@ -17,3 +20,5 @@ public:
 private:
     std::vector<std::type_index> _publishedEventTypes;
 };
+
+#endif

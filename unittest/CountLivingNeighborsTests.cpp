@@ -1,21 +1,24 @@
 #include "gtest/gtest.h"
 
 #include "CountLivingNeighbors.hpp"
+#include "LivingNeighborsOfCellCounted.hpp"
 using namespace ::ConwayGameOfLife;
+using namespace ::EventArchitecture;
 
-#include "PublisherMock.hpp"
-#include "LivingNeighborsOfLiveCellCounted.hpp"
-#include "LivingNeighborsOfDeadCellCounted.hpp"
+#include "EnhancedPublisherMock.hpp"
 
 struct CountLivingNeighborsTests: public ::testing::Test
 {
     CountLivingNeighborsTests() :
-        publisher(),
+        heapAllocator(),
+        publisher(heapAllocator),
         objectUnderTest(publisher)
     {
+        heapAllocator.registerSubtype<LivingNeighborsOfCellCounted>();
     };
 
-    PublisherMock publisher;
+    HeapAllocatorForSubtypesOf<Event> heapAllocator;
+    EnhancedPublisherMock publisher;
     CountLivingNeighbors objectUnderTest;
 };
 
@@ -23,6 +26,5 @@ TEST_F(CountLivingNeighborsTests, emits_one_event_for_each_cell_in_the_grid_of_t
 {
     GenerationCompleted event = { true, false, true, true };
     objectUnderTest.handle(event);
-    EXPECT_EQ(3, publisher.numberOfEventsOfType<LivingNeighborsOfLiveCellCounted>());
-    EXPECT_EQ(1, publisher.numberOfEventsOfType<LivingNeighborsOfDeadCellCounted>());
+    EXPECT_EQ(4, publisher.numberOfEventsOfType<LivingNeighborsOfCellCounted>());
 }

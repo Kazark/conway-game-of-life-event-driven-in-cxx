@@ -1,6 +1,5 @@
 #include "CountLivingNeighbors.hpp"
-#include "LivingNeighborsOfDeadCellCounted.hpp"
-#include "LivingNeighborsOfLiveCellCounted.hpp"
+#include "LivingNeighborsOfCellCounted.hpp"
 using namespace ::ConwayGameOfLife;
 using namespace ::EventArchitecture;
 
@@ -11,10 +10,8 @@ CountLivingNeighbors::CountLivingNeighbors(IPublish& bus) :
 
 void CountLivingNeighbors::handle(GenerationCompleted event) {
     for (auto cell : event.grid.iterator()) {
-        if (cell.isLiving) {
-            _bus.publish(LivingNeighborsOfLiveCellCounted());
-        } else {
-            _bus.publish(LivingNeighborsOfDeadCellCounted());
-        }
+        LivingNeighborsOfCellCounted event;
+        event.isCellAlive = cell.isLiving;
+        _bus.publish(event);
     }
 }
