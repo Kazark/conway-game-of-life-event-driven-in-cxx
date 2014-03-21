@@ -31,6 +31,12 @@ public:
         return count;
     }
 
+    template<typename T>
+    T* lastEventOfType()
+    {
+        return static_cast<T*>(_publishedEvents.back());
+    }
+
 private:
     std::vector<EventArchitecture::Event*> _publishedEvents;
     EventArchitecture::HeapAllocatorForSubtypesOf<EventArchitecture::Event>& _heapAllocator;

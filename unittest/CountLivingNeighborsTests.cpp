@@ -28,3 +28,17 @@ TEST_F(CountLivingNeighborsTests, emits_one_event_for_each_cell_in_the_grid_of_t
     objectUnderTest.handle(event);
     EXPECT_EQ(4, publisher.numberOfEventsOfType<LivingNeighborsOfCellCounted>());
 }
+
+TEST_F(CountLivingNeighborsTests, publishes_event_for_living_cell)
+{
+    GenerationCompleted event = { true };
+    objectUnderTest.handle(event);
+    EXPECT_TRUE(publisher.lastEventOfType<LivingNeighborsOfCellCounted>()->isCellAlive);
+}
+
+TEST_F(CountLivingNeighborsTests, publishes_event_for_dead_cell)
+{
+    GenerationCompleted event = { false };
+    objectUnderTest.handle(event);
+    EXPECT_FALSE(publisher.lastEventOfType<LivingNeighborsOfCellCounted>()->isCellAlive);
+}
