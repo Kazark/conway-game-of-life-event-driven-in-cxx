@@ -4,10 +4,7 @@
 #include "Channel.hpp"
 #include "Router.hpp"
 #include "IPublish.hpp"
-#include "CopyObjectToHeapFromConstRefOfType.hpp"
-
-#include <functional>
-#include <unordered_map>
+#include "HeapAllocatorForSubtypesOf.hpp"
 
 namespace EventArchitecture {
 	class Bus : public IPublish {
@@ -18,7 +15,7 @@ namespace EventArchitecture {
         void registerHandler(IHandle<TEvent>& handler)
         {
             _eventRouter.registerHandler(handler);
-            _copiers[typeid(TEvent)] = CopyObjectToHeapFromConstRefOfType<TEvent>();
+            _heapAllocator.registerSubtype<TEvent>();
         }
 
         void publish(const Event&);
@@ -28,7 +25,7 @@ namespace EventArchitecture {
 	private:
         Router _eventRouter;
         Channel _channel;
-        std::unordered_map<std::type_index, std::function<Event*(const Event&)>> _copiers;
+        HeapAllocatorForSubtypesOf<Event> _heapAllocator;
 	};
 }
 #endif
