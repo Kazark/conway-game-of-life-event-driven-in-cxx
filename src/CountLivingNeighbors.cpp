@@ -12,6 +12,7 @@ void CountLivingNeighbors::handle(GenerationCompleted event) {
     for (auto cell : event.grid.iterator()) {
         LivingNeighborsOfCellCounted event;
         event.isCellAlive = cell.isLiving;
+        event.cellPosition = cell.position;
         _bus.publish(event);
     }
 }

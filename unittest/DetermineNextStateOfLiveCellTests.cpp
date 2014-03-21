@@ -67,20 +67,20 @@ TEST_F(DetermineNextStateOfLiveCellTests, Position_published_when_cell_dies)
 {
     LivingNeighborsOfLiveCellCounted event;
     event.numberOfLivingNeighbors = 8;
-    event.cellLocation = Position(1, 2);
+    event.cellPosition = Position(1, 2);
 
     objectUnderTest.handle(event);
 
-    ASSERT_EQ(event.cellLocation, cellDiedHandler.handledEvents[0].position);
+    ASSERT_EQ(event.cellPosition, cellDiedHandler.handledEvents[0].position);
 }
 
 TEST_F(DetermineNextStateOfLiveCellTests, Position_published_when_cell_remains_alive)
 {
     LivingNeighborsOfLiveCellCounted event;
     event.numberOfLivingNeighbors = 3;
-    event.cellLocation = Position(1, 2);
+    event.cellPosition = Position(1, 2);
 
     objectUnderTest.handle(event);
 
-    ASSERT_EQ(event.cellLocation, cellLivedHandler.handledEvents[0].position);
+    ASSERT_EQ(event.cellPosition, cellLivedHandler.handledEvents[0].position);
 }

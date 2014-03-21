@@ -6,7 +6,7 @@
 
 namespace ConwayGameOfLife {
 	struct LivingNeighborsOfLiveCellCounted : public ::EventArchitecture::Event {
-        Position cellLocation;
+        Position cellPosition;
         unsigned numberOfLivingNeighbors;
 	};
 }

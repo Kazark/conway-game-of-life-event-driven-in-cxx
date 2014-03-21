@@ -12,11 +12,11 @@ void DetermineNextStateOfDeadCell::handle(LivingNeighborsOfDeadCellCounted inEve
 {
     if (inEvent.numberOfLivingNeighbors == 3)
     {
-        cellComesToLifeAt(inEvent.cellLocation);
+        cellComesToLifeAt(inEvent.cellPosition);
     }
     else
     {
-        cellRemainsDeadAt(inEvent.cellLocation);
+        cellRemainsDeadAt(inEvent.cellPosition);
     }
 }
 
