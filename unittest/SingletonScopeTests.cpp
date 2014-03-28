@@ -3,12 +3,7 @@
 #include "SingletonScope.hpp"
 using namespace ::EventArchitecture;
 
-struct XXX : public ReferenceType {
-    XXX(int x) : x(x) {}
-    int x;
-};
-
-struct YYY : public ReferenceType {};
+#include "ReferenceTypesForTesting.hpp"
 
 TEST(SingletonScopeTests, attempt_to_get_type_when_container_is_empty_returns_nulltpr)
 {

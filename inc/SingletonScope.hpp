@@ -6,7 +6,6 @@
 #include <unordered_map>
 #include <typeindex>
 #include <functional>
-#include <vector>
 #include <stdexcept>
 
 namespace EventArchitecture {
