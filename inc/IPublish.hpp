@@ -2,11 +2,12 @@
 #define _EVENTARCHITECTURE_IPUBLISH_HPP_
 
 #include "Event.hpp"
+#include "ReferenceType.hpp"
 
 namespace EventArchitecture {
-	class IPublish {
+	class IPublish: public ReferenceType {
 	public:
-        virtual ~IPublish() {};
+        virtual ~IPublish() {}
         virtual void publish(const Event&) = 0;
 	private:
 	};
