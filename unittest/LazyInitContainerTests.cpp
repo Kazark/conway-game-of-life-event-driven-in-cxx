@@ -17,5 +17,5 @@ TEST(LazyInitContainerTests, does_not_return_nullptr_when_injector_registered) {
     objectUnderTest.registerInjector<XXX>([](LazyInitContainer&) { return new XXX(2); });
     objectUnderTest.registerInjector<YYY>(Inject<>::Into<YYY>);
     objectUnderTest.registerInjector<ZZZ>(Inject<XXX, YYY>::Into<ZZZ>);
-    ASSERT_NE(nullptr, objectUnderTest.getInstanceOf<ZZZ>());
+    ASSERT_NO_THROW(objectUnderTest.getInstanceOf<ZZZ>());
 }

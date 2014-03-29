@@ -14,6 +14,12 @@ public:
         _heapAllocator(heapAllocator)
     {}
 
+    ~EnhancedPublisherMock() {
+        for (auto event : _publishedEvents) {
+            delete event;
+        }
+    }
+
     virtual void publish(const ::EventArchitecture::Event& event) {
         PublisherMock::publish(event);
         _publishedEvents.push_back(_heapAllocator.fromConstRef(event));
