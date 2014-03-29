@@ -81,6 +81,13 @@ $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
 # DEPENDENCY BUILDING
+include $(OBJ_DIR)/main/main.d
+
+$(OBJ_DIR)/main/main.d: main.cpp
+	$(CXX) -M $(CPPFLAGS) $(CXXFLAGS) $< > $@.$$$$; \
+	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+	rm -f $@.$$$$
+
 include $(subst $(SRC_DIR)/,$(OBJ_DIR)/,$(subst .cpp,.d,$(PRODUCTION_SRC)))
 
 $(OBJ_DIR)/%.d: $(PRODUCTION_SRC)
