@@ -7,7 +7,9 @@ using namespace ::EventArchitecture;
 
 TEST(BusTests, smoke_test)
 {
-    Bus objectUnderTest;
+    Router router;
+    Channel channel{router};
+    Bus objectUnderTest{router, channel};
     EventForTestingHandler handler;
     EventForTesting event{3};
 

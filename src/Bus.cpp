@@ -1,9 +1,9 @@
 #include "Bus.hpp"
 using namespace ::EventArchitecture;
 
-Bus::Bus() :
-    _eventRouter(),
-    _channel(_eventRouter),
+Bus::Bus(Router& router, Channel& channel) :
+    _eventRouter(router),
+    _channel(channel),
     _heapAllocator()
 {}
 

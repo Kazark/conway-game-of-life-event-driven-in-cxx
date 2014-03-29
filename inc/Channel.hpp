@@ -4,12 +4,13 @@
 #include "IHandle.hpp"
 #include "InputChannel.hpp"
 #include "OutputChannel.hpp"
+#include "ReferenceType.hpp"
 
 #include <queue>
 #include <list>
 
 namespace EventArchitecture {
-	class Channel : public InputChannel, public OutputChannel {
+	class Channel : public InputChannel, public OutputChannel, public ReferenceType {
 	public:
         Channel(IHandle<const Event*>&);
         ~Channel();
