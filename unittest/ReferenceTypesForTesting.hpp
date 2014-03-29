@@ -11,9 +11,9 @@ struct XXX : public ::EventArchitecture::ReferenceType {
 struct YYY: public ::EventArchitecture::ReferenceType {};
 
 struct ZZZ: public ::EventArchitecture::ReferenceType {
-    ZZZ(XXX xxx, YYY yyy) : xxx(xxx), yyy(yyy) {}
-    XXX xxx;
-    YYY yyy;
+    ZZZ(XXX& xxx, ReferenceType& yyy) : xxx(xxx), yyy(yyy) {}
+    XXX& xxx;
+    ReferenceType& yyy;
 };
 
 #endif

@@ -6,8 +6,10 @@ using namespace ::EventArchitecture;
 
 #include "ReferenceTypesForTesting.hpp"
 
+#include <stdexcept>
+
 TEST(LazyInitContainerTests, returns_nullptr_when_no_injector_registered) {
-    ASSERT_EQ(nullptr, LazyInitContainer().getInstanceOf<ZZZ>());
+    ASSERT_THROW(LazyInitContainer().getInstanceOf<ZZZ>(), std::out_of_range);
 }
 
 TEST(LazyInitContainerTests, does_not_return_nullptr_when_injector_registered) {

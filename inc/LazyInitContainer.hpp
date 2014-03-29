@@ -6,26 +6,18 @@
 #include <unordered_map>
 #include <typeindex>
 #include <functional>
-#include <stdexcept>
 
 namespace EventArchitecture {
 	class LazyInitContainer {
 	public:
         template<typename T>
-        T* getInstanceOf() {
+        T& getInstanceOf() {
             auto instance = _scope.getInstanceOf<T>();
             if (instance == nullptr) {
-                try
-                {
-                    instance = dynamic_cast<T*>(_injectors.at(typeid(T))(*this));
-                    _scope.saveInstance(instance);
-                }
-                catch (std::out_of_range&)
-                {
-                    instance = nullptr;
-                }
+                instance = dynamic_cast<T*>(_injectors.at(typeid(T))(*this));
+                _scope.saveInstance(instance);
             }
-            return instance;
+            return *instance;
         }
 
         template<typename T>

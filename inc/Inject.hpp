@@ -8,7 +8,7 @@ namespace EventArchitecture {
 	struct Inject {
         template<typename T>
         static T* Into(LazyInitContainer& container) {
-            return new T(*container.getInstanceOf<TDependencies>()...);
+            return new T(container.getInstanceOf<TDependencies>()...);
         }
 	};
 }
