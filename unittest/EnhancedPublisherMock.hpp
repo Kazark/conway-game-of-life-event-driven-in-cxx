@@ -40,6 +40,10 @@ public:
     template<typename T>
     T* lastEventOfType()
     {
+        if (_publishedEvents.size() == 0)
+        {
+            return nullptr;
+        }
         return static_cast<T*>(_publishedEvents.back());
     }
 
