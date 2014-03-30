@@ -6,7 +6,7 @@
 #include "LivingNeighborsOfCellCounted.hpp"
 
 namespace ConwayGameOfLife {
-	class DetermineNextCellState : ::EventArchitecture::IHandle<LivingNeighborsOfCellCounted> {
+	class DetermineNextCellState: public ::EventArchitecture::IHandle<LivingNeighborsOfCellCounted> {
 	public:
         DetermineNextCellState(::EventArchitecture::IPublish&);
         void handle(LivingNeighborsOfCellCounted);

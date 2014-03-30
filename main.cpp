@@ -5,6 +5,7 @@
 using namespace ::EventArchitecture;
 
 #include "CountLivingNeighbors.hpp"
+#include "DetermineNextCellState.hpp"
 using namespace ::ConwayGameOfLife;
 
 int main(int /*argCount*/, char* /*argArray*/[])
@@ -15,9 +16,11 @@ int main(int /*argCount*/, char* /*argArray*/[])
     container.registerInjector<Bus>(Inject<Router, Channel>::Into<Bus>);
     container.registerInjector<DeliverEventsUntilNoneLeft>(Inject<Channel>::Into<DeliverEventsUntilNoneLeft>);
     container.registerInjector<CountLivingNeighbors>(Inject<Bus>::Into<CountLivingNeighbors>);
+    container.registerInjector<DetermineNextCellState>(Inject<Bus>::Into<DetermineNextCellState>);
 
     auto bus = container.getInstanceOf<Bus>();
     bus.registerHandler(container.getInstanceOf<CountLivingNeighbors>());
+    bus.registerHandler(container.getInstanceOf<DetermineNextCellState>());
 
     auto mainLoop = container.getInstanceOf<DeliverEventsUntilNoneLeft>();
     mainLoop.run();
