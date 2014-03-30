@@ -11,6 +11,8 @@ namespace ConwayGameOfLife {
         DetermineNextCellState(::EventArchitecture::IPublish&);
         void handle(LivingNeighborsOfCellCounted);
 	private:
+        bool isNextStateOfCellLiving(LivingNeighborsOfCellCounted) const;
+
         ::EventArchitecture::IPublish& _bus;
 	};
 }

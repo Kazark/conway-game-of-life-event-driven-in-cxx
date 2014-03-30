@@ -10,6 +10,11 @@ DetermineNextCellState::DetermineNextCellState(IPublish& bus) :
 void DetermineNextCellState::handle(LivingNeighborsOfCellCounted inEvent) {
     CellStateChanged outEvent;
     outEvent.position = inEvent.cellPosition;
-    outEvent.cellIsNowAlive = (inEvent.numberOfLivingNeighbors == 3);
+    outEvent.cellIsNowAlive = isNextStateOfCellLiving(inEvent);
     _bus.publish(outEvent);
+}
+
+bool DetermineNextCellState::isNextStateOfCellLiving(LivingNeighborsOfCellCounted event) const {
+    return event.numberOfLivingNeighbors == 3 ||
+          (event.numberOfLivingNeighbors == 2 && event.isCellAlive);
 }

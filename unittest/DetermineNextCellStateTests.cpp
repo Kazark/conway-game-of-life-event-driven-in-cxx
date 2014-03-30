@@ -67,3 +67,48 @@ TEST_F(DetermineNextCellStateTests, Publishes_position_from_incoming_event)
 
     ASSERT_EQ(event.cellPosition, publisher.lastEventOfType<CellStateChanged>()->position);
 }
+
+TEST_F(DetermineNextCellStateTests, Live_cell_dies_with_less_than_two_living_neighbors)
+{
+    LivingNeighborsOfCellCounted event;
+    event.numberOfLivingNeighbors = 1;
+    event.isCellAlive = true;
+
+    objectUnderTest.handle(event);
+
+    EXPECT_FALSE(publisher.lastEventOfType<CellStateChanged>()->cellIsNowAlive);
+}
+
+TEST_F(DetermineNextCellStateTests, Live_cell_with_two_living_neighbors_stays_alive)
+{
+    LivingNeighborsOfCellCounted event;
+    event.numberOfLivingNeighbors = 2;
+    event.isCellAlive = true;
+
+    objectUnderTest.handle(event);
+
+    EXPECT_TRUE(publisher.lastEventOfType<CellStateChanged>()->cellIsNowAlive);
+}
+
+TEST_F(DetermineNextCellStateTests, Live_cell_with_three_living_neighbors_stays_alive)
+{
+    LivingNeighborsOfCellCounted event;
+    event.numberOfLivingNeighbors = 3;
+    event.isCellAlive = true;
+
+    objectUnderTest.handle(event);
+
+    EXPECT_TRUE(publisher.lastEventOfType<CellStateChanged>()->cellIsNowAlive);
+}
+
+TEST_F(DetermineNextCellStateTests, Living_cell_with_more_than_three_living_neighbors_dies)
+{
+    LivingNeighborsOfCellCounted event;
+    event.numberOfLivingNeighbors = 4;
+    event.isCellAlive = true;
+
+    objectUnderTest.handle(event);
+
+    EXPECT_FALSE(publisher.lastEventOfType<CellStateChanged>()->cellIsNowAlive);
+}
+
