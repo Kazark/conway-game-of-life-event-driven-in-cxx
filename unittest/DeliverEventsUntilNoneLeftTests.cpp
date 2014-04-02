@@ -10,8 +10,10 @@ using namespace ::EventArchitecture;
 
 TEST(DeliverEventsUntilNoneLeftTests, delivers_events_of_the_channel_on_at_a_time_until_none_are_left)
 {
-    EventPointerHandlerForTesting handler;
-    Channel channel{handler};
+    EventForTestingHandler handler;
+    Router router;
+    router.registerHandler(handler);
+    Channel channel{router};
 
     channel.enqueue(new EventForTesting{1U});
     channel.enqueue(new EventForTesting{2U});

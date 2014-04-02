@@ -7,41 +7,44 @@ using namespace ::EventArchitecture;
 // Testing code
 #include "EventForTestingHandler.hpp"
 
-TEST(ChannelTests, is_empty_on_initialization)
+struct ChannelTests: public ::testing::Test
 {
-    EventPointerHandlerForTesting handler;
+    ChannelTests() :
+        handler(),
+        router(),
+        objectUnderTest(router)
+    {
+        router.registerHandler(handler);
+    };
 
-    Channel objectUnderTest{handler};
+    EventForTestingHandler handler;
+    Router router;
+    Channel objectUnderTest;
+};
 
+TEST_F(ChannelTests, is_empty_on_initialization)
+{
     ASSERT_FALSE(objectUnderTest.hasMore());
 }
 
-TEST(ChannelTests, can_enqueue_events)
+TEST_F(ChannelTests, can_enqueue_events)
 {
-    EventPointerHandlerForTesting handler;
-    Channel objectUnderTest{handler};
-
     objectUnderTest.enqueue(new EventForTesting{7U});
 
     ASSERT_TRUE(objectUnderTest.hasMore());
 }
 
-TEST(ChannelTests, pops_event_off_the_queue_when_delivering_it)
+TEST_F(ChannelTests, pops_event_off_the_queue_when_delivering_it)
 {
-    EventPointerHandlerForTesting handler;
-    Channel objectUnderTest{handler};
-
     objectUnderTest.enqueue(new EventForTesting{7U});
     objectUnderTest.deliverOne();
 
     ASSERT_FALSE(objectUnderTest.hasMore());
 }
 
-TEST(ChannelTests, delivers_events)
+TEST_F(ChannelTests, delivers_events)
 {
-    EventPointerHandlerForTesting handler;
     auto* event = new EventForTesting{7U};
-    Channel objectUnderTest{handler};
 
     objectUnderTest.enqueue(event);
     objectUnderTest.deliverOne();
@@ -49,11 +52,8 @@ TEST(ChannelTests, delivers_events)
     ASSERT_TRUE(handler.handledEventWithId(event->id));
 }
 
-TEST(ChannelTests, delivers_only_one_event_at_a_time)
+TEST_F(ChannelTests, delivers_only_one_event_at_a_time)
 {
-    EventPointerHandlerForTesting handler;
-    Channel objectUnderTest{handler};
-
     objectUnderTest.enqueue(new EventForTesting{7U});
     objectUnderTest.enqueue(new EventForTesting{9U});
     objectUnderTest.deliverOne();
@@ -61,11 +61,9 @@ TEST(ChannelTests, delivers_only_one_event_at_a_time)
     ASSERT_TRUE(objectUnderTest.hasMore());
 }
 
-TEST(ChannelTests, has_FIFO_queueing_discipline)
+TEST_F(ChannelTests, has_FIFO_queueing_discipline)
 {
-    EventPointerHandlerForTesting handler;
     auto* event = new EventForTesting{7U};
-    Channel objectUnderTest{handler};
 
     objectUnderTest.enqueue(event);
     objectUnderTest.enqueue(new EventForTesting{9U});

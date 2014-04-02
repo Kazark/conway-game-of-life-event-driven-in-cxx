@@ -1,7 +1,7 @@
 #ifndef _EVENTARCHITECTURE_CHANNEL_HPP_
 #define _EVENTARCHITECTURE_CHANNEL_HPP_
 
-#include "IHandle.hpp"
+#include "Router.hpp"
 #include "InputChannel.hpp"
 #include "OutputChannel.hpp"
 #include "ReferenceType.hpp"
@@ -12,14 +12,14 @@
 namespace EventArchitecture {
 	class Channel : public InputChannel, public OutputChannel, public ReferenceType {
 	public:
-        Channel(IHandle<const Event*>&);
+        Channel(Router&);
         ~Channel();
         void enqueue(Event*);
         void deliverOne();
         bool hasMore() const;
 
 	private:
-        IHandle<const Event*>& _handler;
+        Router& _router;
         std::queue<Event*, std::list<Event*>> _eventQueue;
 	};
 }

@@ -10,7 +10,3 @@ Bus::Bus(Router& router, Channel& channel) :
 void Bus::publish(const Event& event) {
     _channel.enqueue(_heapAllocator.fromConstRef(event));
 }
-
-OutputChannel& Bus::outputChannel() {
-    return _channel;
-}

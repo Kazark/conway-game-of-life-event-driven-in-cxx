@@ -4,6 +4,7 @@
 #include <functional>
 #include <unordered_map>
 #include <typeindex>
+#include <stdexcept>
 
 namespace EventArchitecture {
     template<typename TBase>
@@ -15,7 +16,11 @@ namespace EventArchitecture {
         }
 
         TBase* fromConstRef(const TBase& object) {
-            return _copiers.at(typeid(object))(object);
+            try {
+                return _copiers.at(typeid(object))(object);
+            } catch (std::out_of_range&) {
+                return nullptr;
+            }
         }
 
 	private:

@@ -20,8 +20,6 @@ namespace EventArchitecture {
 
         void publish(const Event&);
 
-        OutputChannel& outputChannel();
-
 	private:
         Router& _eventRouter;
         Channel& _channel;

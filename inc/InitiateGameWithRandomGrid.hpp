@@ -2,9 +2,10 @@
 #define _CONWAYGAMEOFLIFE_INITIATEGAMEWITHRANDOMGRID_HPP_
 
 #include "IPublish.hpp"
+#include "ReferenceType.hpp"
 
 namespace ConwayGameOfLife {
-	class InitiateGameWithRandomGrid {
+	class InitiateGameWithRandomGrid: public ::EventArchitecture::ReferenceType {
 	public:
         InitiateGameWithRandomGrid(::EventArchitecture::IPublish&);
         void initiate();

@@ -1,8 +1,8 @@
 #include "Channel.hpp"
 using namespace ::EventArchitecture;
 
-Channel::Channel(IHandle<const Event*>& handler) :
-    _handler(handler)
+Channel::Channel(Router& router) :
+    _router(router)
 {}
 
 Channel::~Channel() {
@@ -18,7 +18,7 @@ void Channel::enqueue(Event* event) {
 
 void Channel::deliverOne() {
     auto* event = _eventQueue.front();
-    _handler.handle(event);
+    _router.invokeHandler(event);
     _eventQueue.pop();
     delete event;
 }

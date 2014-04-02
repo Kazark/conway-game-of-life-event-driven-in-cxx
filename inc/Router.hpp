@@ -8,9 +8,10 @@
 // C++ Standard libraries
 #include <unordered_map>
 #include <typeindex>
+#include <stdexcept>
 
 namespace EventArchitecture {
-	class Router: public IHandle<const Event*> {
+	class Router {
 	public:
         ~Router() {
             for (auto pair : registry) {
@@ -28,11 +29,6 @@ namespace EventArchitecture {
         {
             auto unpackager = registry.at(typeid(*event));
             unpackager->invokeHandler(event);
-        }
-
-        void handle(const Event* event)
-        {
-            invokeHandler(event);
         }
 
 	private:
