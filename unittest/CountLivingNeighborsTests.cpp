@@ -5,7 +5,7 @@
 using namespace ::ConwayGameOfLife;
 using namespace ::EventArchitecture;
 
-#include "EnhancedPublisherMock.hpp"
+#include "PublisherMock.hpp"
 
 struct CountLivingNeighborsTests: public ::testing::Test
 {
@@ -18,7 +18,7 @@ struct CountLivingNeighborsTests: public ::testing::Test
     };
 
     HeapAllocatorForSubtypesOf<Event> heapAllocator;
-    EnhancedPublisherMock publisher;
+    PublisherMock publisher;
     CountLivingNeighbors objectUnderTest;
 };
 

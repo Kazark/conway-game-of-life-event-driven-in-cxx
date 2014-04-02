@@ -7,7 +7,7 @@ using namespace ::ConwayGameOfLife;
 #include "HeapAllocatorForSubtypesOf.hpp"
 using namespace ::EventArchitecture;
 
-#include "EnhancedPublisherMock.hpp"
+#include "PublisherMock.hpp"
 
 struct DetermineNextCellStateTests: public ::testing::Test
 {
@@ -19,7 +19,7 @@ struct DetermineNextCellStateTests: public ::testing::Test
     };
 
     HeapAllocatorForSubtypesOf<Event> heapAllocator;
-    EnhancedPublisherMock publisher;
+    PublisherMock publisher;
     DetermineNextCellState objectUnderTest;
 };
 

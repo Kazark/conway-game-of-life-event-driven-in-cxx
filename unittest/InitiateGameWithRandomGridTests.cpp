@@ -5,13 +5,13 @@
 using namespace ::ConwayGameOfLife;
 
 #include "HeapAllocatorForSubtypesOf.hpp"
-#include "EnhancedPublisherMock.hpp"
+#include "PublisherMock.hpp"
 using namespace ::EventArchitecture;
 
 TEST(InitiateGameWithRandomGridTests, publishes_message_with_grid_whose_size_defaults_to_4)
 {
     HeapAllocatorForSubtypesOf<Event> heapAllocator;
-    EnhancedPublisherMock publisher(heapAllocator);
+    PublisherMock publisher(heapAllocator);
     heapAllocator.registerSubtype<GameInitiated>();
     InitiateGameWithRandomGrid objectUnderTest(publisher);
     
