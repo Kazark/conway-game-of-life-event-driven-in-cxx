@@ -8,5 +8,9 @@ Bus::Bus(Router& router, Channel& channel) :
 {}
 
 void Bus::publish(const Event& event) {
-    _channel.enqueue(_heapAllocator.fromConstRef(event));
+    auto eventOnHeap = _heapAllocator.fromConstRef(event);
+    if (eventOnHeap == nullptr) {
+        return;
+    }
+    _channel.enqueue(eventOnHeap);
 }

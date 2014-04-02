@@ -4,6 +4,7 @@
 // Event Architecture
 #include "IHandle.hpp"
 #include "Event.hpp"
+#include "ReferenceType.hpp"
 
 // C++ Standard libraries
 #include <unordered_map>
@@ -11,7 +12,7 @@
 #include <stdexcept>
 
 namespace EventArchitecture {
-	class Router {
+	class Router: public ReferenceType {
 	public:
         ~Router() {
             for (auto pair : registry) {

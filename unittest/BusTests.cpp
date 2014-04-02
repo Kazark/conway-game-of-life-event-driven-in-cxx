@@ -5,11 +5,22 @@ using namespace ::EventArchitecture;
 
 #include "EventForTestingHandler.hpp"
 
-TEST(BusTests, smoke_test)
+struct BusTests: public ::testing::Test
 {
+    BusTests() :
+        router(),
+        channel(router),
+        objectUnderTest(router, channel)
+    {
+    };
+
     Router router;
-    Channel channel{router};
-    Bus objectUnderTest{router, channel};
+    Channel channel;
+    Bus objectUnderTest;
+};
+
+TEST_F(BusTests, smoke_test)
+{
     EventForTestingHandler handler;
     EventForTesting event{3};
 
@@ -20,17 +31,11 @@ TEST(BusTests, smoke_test)
     handler.handledEventWithId(event.id);
 }
 
-TEST(BusTests, does_not_enqueue_anything_on_channel_when_event_not_registered)
+TEST_F(BusTests, does_not_enqueue_anything_on_channel_when_no_event_handler_registered_for_type)
 {
-    Router router;
-    Channel channel{router};
-    Bus objectUnderTest{router, channel};
-    EventForTestingHandler handler;
     EventForTesting event{3};
 
-    objectUnderTest.registerHandler(handler);
     objectUnderTest.publish(event);
-    channel.deliverOne();
 
-    handler.handledEventWithId(event.id);
+    ASSERT_FALSE(channel.hasMore());
 }
