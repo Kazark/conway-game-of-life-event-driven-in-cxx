@@ -4,7 +4,7 @@
 #include "ReferenceType.hpp"
 
 namespace EventArchitecture {
-	template<class TEvent> class IHandle: public ReferenceType {
+	template<class TEvent> class IHandle: public virtual ReferenceType {
 	public:
         virtual ~IHandle() {}
         virtual void handle(TEvent) = 0;

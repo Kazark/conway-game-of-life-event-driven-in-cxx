@@ -7,6 +7,7 @@ using namespace ::EventArchitecture;
 #include "InitiateGameWithRandomGrid.hpp"
 #include "CountLivingNeighbors.hpp"
 #include "DetermineNextCellState.hpp"
+#include "AggregateCellStateChanges.hpp"
 using namespace ::ConwayGameOfLife;
 
 int main(int /*argCount*/, char* /*argArray*/[])
@@ -20,10 +21,13 @@ int main(int /*argCount*/, char* /*argArray*/[])
     container.registerInjector<InitiateGameWithRandomGrid>(Inject<Bus>::Into<InitiateGameWithRandomGrid>);
     container.registerInjector<CountLivingNeighbors>(Inject<Bus>::Into<CountLivingNeighbors>);
     container.registerInjector<DetermineNextCellState>(Inject<Bus>::Into<DetermineNextCellState>);
+    container.registerInjector<AggregateCellStateChanges>(Inject<Bus>::Into<AggregateCellStateChanges>);
 
     auto bus = container.getInstanceOf<Bus>();
     bus.registerHandler(container.getInstanceOf<CountLivingNeighbors>());
     bus.registerHandler(container.getInstanceOf<DetermineNextCellState>());
+    bus.registerHandler<GameInitiated>(container.getInstanceOf<AggregateCellStateChanges>());
+    bus.registerHandler<CellStateChanged>(container.getInstanceOf<AggregateCellStateChanges>());
 
     container.getInstanceOf<InitiateGameWithRandomGrid>().initiate();
     auto mainLoop = container.getInstanceOf<DeliverEventsUntilNoneLeft>();

@@ -21,36 +21,37 @@ struct AggregateCellStateChangesTests: public ::testing::Test
     HeapAllocatorForSubtypesOf<Event> heapAllocator;
     PublisherMock publisher;
     AggregateCellStateChanges objectUnderTest;
+
+    void threeStateChanges() {
+        objectUnderTest.handle(CellStateChanged());
+        objectUnderTest.handle(CellStateChanged());
+        objectUnderTest.handle(CellStateChanged());
+    }
+
+    void fourStateChanges() {
+        threeStateChanges();
+        objectUnderTest.handle(CellStateChanged());
+    }
 };
 
 TEST_F(AggregateCellStateChangesTests, does_not_emit_event_before_all_state_changes_have_been_published)
 {
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
+    threeStateChanges();
 
     ASSERT_FALSE(publisher.any());
 }
 
 TEST_F(AggregateCellStateChangesTests, emits_CellStateChangesAggregated_once_all_state_changes_have_been_published)
 {
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
+    fourStateChanges();
 
     ASSERT_EQ(1, publisher.numberOfEventsOfType<CellStateChangesAggregated>());
 }
 
 TEST_F(AggregateCellStateChangesTests, resets_its_state_after_publishing)
 {
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
-    objectUnderTest.handle(CellStateChanged());
+    fourStateChanges();
+    threeStateChanges();
     EXPECT_EQ(1, publisher.numberOfEventsOfType<CellStateChangesAggregated>());
 
     objectUnderTest.handle(CellStateChanged());

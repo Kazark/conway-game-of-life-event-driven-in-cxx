@@ -8,9 +8,9 @@
 #include "GameInitiated.hpp"
 
 namespace ConwayGameOfLife {
-	class AggregateCellStateChanges :
-        ::EventArchitecture::IHandle<CellStateChanged>,
-        ::EventArchitecture::IHandle<GameInitiated>
+	class AggregateCellStateChanges:
+        public ::EventArchitecture::IHandle<CellStateChanged>,
+        public ::EventArchitecture::IHandle<GameInitiated>
     {
 	public:
         AggregateCellStateChanges(::EventArchitecture::IPublish&);
