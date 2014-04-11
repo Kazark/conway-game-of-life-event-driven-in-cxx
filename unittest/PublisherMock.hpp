@@ -53,6 +53,10 @@ public:
         return static_cast<T*>(_publishedEvents.back());
     }
 
+    bool any() const {
+        return _publishedEvents.size() > 0;
+    }
+
 private:
     std::vector<std::type_index> _publishedEventTypes;
     std::vector<EventArchitecture::Event*> _publishedEvents;
