@@ -42,3 +42,19 @@ TEST_F(AggregateCellStateChangesTests, emits_CellStateChangesAggregated_once_all
     ASSERT_EQ(1, publisher.numberOfEventsOfType<CellStateChangesAggregated>());
 }
 
+TEST_F(AggregateCellStateChangesTests, resets_its_state_after_publishing)
+{
+    objectUnderTest.handle(CellStateChanged());
+    objectUnderTest.handle(CellStateChanged());
+    objectUnderTest.handle(CellStateChanged());
+    objectUnderTest.handle(CellStateChanged());
+    objectUnderTest.handle(CellStateChanged());
+    objectUnderTest.handle(CellStateChanged());
+    objectUnderTest.handle(CellStateChanged());
+    EXPECT_EQ(1, publisher.numberOfEventsOfType<CellStateChangesAggregated>());
+
+    objectUnderTest.handle(CellStateChanged());
+
+    ASSERT_EQ(2, publisher.numberOfEventsOfType<CellStateChangesAggregated>());
+}
+

@@ -17,5 +17,6 @@ void AggregateCellStateChanges::handle(CellStateChanged) {
     _numberAggregated++;
     if (_numberAggregated == _numberToAggregate) {
         _bus.publish(CellStateChangesAggregated());
+        _numberAggregated = 0;
     }
 }
