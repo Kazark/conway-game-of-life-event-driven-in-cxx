@@ -15,7 +15,8 @@ namespace ConwayGameOfLife {
         ArrayIterator<const Cell&, Grid> iterator() const;
 
         int size() const;
-        
+        int numberOfCells() const;        
+
 	private:
         const Cell& operator[](int) const;
         int length() const;
@@ -23,7 +24,7 @@ namespace ConwayGameOfLife {
         friend class ArrayIterator<const Cell&, Grid>;
 
         int _size;
-        int _length;
+        int _numberOfCells;
         std::vector<Cell> _gridData;
 	};
 }

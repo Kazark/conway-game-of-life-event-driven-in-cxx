@@ -32,3 +32,13 @@ TEST_F(AggregateCellStateChangesTests, does_not_emit_event_before_all_state_chan
     ASSERT_FALSE(publisher.any());
 }
 
+TEST_F(AggregateCellStateChangesTests, emits_CellStateChangesAggregated_once_all_state_changes_have_been_published)
+{
+    objectUnderTest.handle(CellStateChanged());
+    objectUnderTest.handle(CellStateChanged());
+    objectUnderTest.handle(CellStateChanged());
+    objectUnderTest.handle(CellStateChanged());
+
+    ASSERT_EQ(1, publisher.numberOfEventsOfType<CellStateChangesAggregated>());
+}
+

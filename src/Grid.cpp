@@ -5,10 +5,10 @@ using namespace ::ConwayGameOfLife;
 
 Grid::Grid(std::vector<bool> data) :
     _size(sqrt(data.size())),
-    _length(_size*_size),
-    _gridData(_length)
+    _numberOfCells(_size*_size),
+    _gridData(_numberOfCells)
 {
-    for (auto i = 0; i < _length; i++)
+    for (auto i = 0; i < _numberOfCells; i++)
     {
         Cell cell(this);
         cell.isLiving = data[i];
@@ -32,7 +32,11 @@ int Grid::size() const
     return _size;
 }
 
+int Grid::numberOfCells() const {
+    return _numberOfCells;
+}
+
 int Grid::length() const
 {
-    return _length;
+    return numberOfCells();
 }

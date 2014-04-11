@@ -14,10 +14,14 @@ namespace ConwayGameOfLife {
     {
 	public:
         AggregateCellStateChanges(::EventArchitecture::IPublish&);
-        void handle(CellStateChanged);
         void handle(GameInitiated);
+        void handle(CellStateChanged);
+
 	private:
         ::EventArchitecture::IPublish& _bus;
+
+        int _numberToAggregate;
+        int _numberAggregated;
 	};
 }
 #endif
