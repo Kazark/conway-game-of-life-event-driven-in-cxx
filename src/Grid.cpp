@@ -3,7 +3,7 @@
 using namespace ::ConwayGameOfLife;
 #include <cmath>
 
-Grid::Grid(std::vector<bool> data) :
+Grid::Grid(const std::vector<bool>& data) :
     _size(sqrt(data.size())),
     _numberOfCells(_size*_size),
     _gridData(_numberOfCells)
@@ -25,6 +25,24 @@ ArrayIterator<const Cell&, Grid> Grid::iterator() const
 const Cell& Grid::operator[](int i) const
 {
     return _gridData[i];
+}
+
+bool Grid::operator==(const Grid& that) const {
+    if (this->size() != that.size()) {
+        return false;
+    }
+
+    for (int i = 0; i < numberOfCells(); ++i) {
+        if ((*this)[i].isLiving != that[i].isLiving) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool Grid::operator!=(const Grid& that) const {
+    return !(*this == that);
 }
 
 int Grid::size() const

@@ -10,12 +10,15 @@ namespace ConwayGameOfLife {
     class Cell;
 	class Grid {
 	public:
-        Grid(std::vector<bool>);
+        Grid(const std::vector<bool>&);
 
         ArrayIterator<const Cell&, Grid> iterator() const;
 
         int size() const;
         int numberOfCells() const;        
+
+        bool operator==(const Grid&) const;
+        bool operator!=(const Grid&) const;
 
 	private:
         const Cell& operator[](int) const;
