@@ -1,10 +1,19 @@
 #include "BuildGrid.hpp"
 using namespace ::ConwayGameOfLife;
 
-BuildGrid BuildGrid::OfSize(int) {
-    return BuildGrid();
+BuildGrid BuildGrid::OfSize(int size) {
+    return BuildGrid(size);
 }
 
-bool BuildGrid::finished() {
-    return false;
+BuildGrid::BuildGrid(int size) :
+    _size(size),
+    _numberSet(0)
+{}
+
+void BuildGrid::atPositionSetCellState(Position, bool) {
+    _numberSet++;
+}
+
+bool BuildGrid::finished() const {
+    return _numberSet == _size * _size;
 }
