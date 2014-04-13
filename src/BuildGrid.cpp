@@ -13,7 +13,7 @@ BuildGrid::BuildGrid(int size) :
     _numberSet(0),
     _gridData(new bool[size*size])
 {
-    std::fill_n(_gridData, size*size, false);
+    reset();
 }
 
 void BuildGrid::atPositionSetCellState(Position position, bool state) {
@@ -22,11 +22,16 @@ void BuildGrid::atPositionSetCellState(Position position, bool state) {
     _numberSet++;
 }
 
+void BuildGrid::reset() {
+    std::fill_n(_gridData, _size*_size, false);
+    _numberSet = 0;
+}
+
 bool BuildGrid::finished() const {
     return _numberSet == _size * _size;
 }
 
-Grid BuildGrid::build() {
+Grid BuildGrid::build() const {
     std::vector<bool> blech;
     for (int i = 0; i < _size*_size; ++i) {
         blech.push_back(_gridData[i]);

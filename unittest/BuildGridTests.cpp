@@ -54,3 +54,12 @@ TEST_F(BuildGridTests, builds_grid_correctly_even_when_cells_are_not_assigned_in
 
     ASSERT_EQ(Grid({true, false, true, true}), objectUnderTest.build());
 }
+
+TEST_F(BuildGridTests, is_able_to_reset_its_state)
+{
+    setThreeStates();
+    objectUnderTest.reset();
+    objectUnderTest.atPositionSetCellState({1, 1}, true);
+
+    ASSERT_FALSE(objectUnderTest.finished());
+}

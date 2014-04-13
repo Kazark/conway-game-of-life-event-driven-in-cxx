@@ -16,7 +16,8 @@ namespace ConwayGameOfLife {
 
         void atPositionSetCellState(Position, bool);
         bool finished() const;
-        Grid build();
+        void reset();
+        Grid build() const;
 
 	private:
         BuildGrid(int size);
