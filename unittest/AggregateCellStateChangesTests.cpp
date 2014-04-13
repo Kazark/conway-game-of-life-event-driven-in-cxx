@@ -34,18 +34,19 @@ struct AggregateCellStateChangesTests: public ::testing::Test
     }
 };
 
-TEST_F(AggregateCellStateChangesTests, does_not_emit_event_before_all_state_changes_have_been_published)
+TEST_F(AggregateCellStateChangesTests, does_not_emit_event_before_all_state_changes_have_been_handled)
 {
     threeStateChanges();
 
     ASSERT_FALSE(publisher.any());
 }
 
-TEST_F(AggregateCellStateChangesTests, emits_CellStateChangesAggregated_once_all_state_changes_have_been_published)
+TEST_F(AggregateCellStateChangesTests, emits_aggregate_event_once_all_state_changes_have_been_handled)
 {
     fourStateChanges();
 
     ASSERT_EQ(1, publisher.numberOfEventsOfType<CellStateChangesAggregated>());
+    ASSERT_EQ(2, publisher.lastEventOfType<CellStateChangesAggregated>()->aggregateState.size());
 }
 
 TEST_F(AggregateCellStateChangesTests, resets_its_state_after_publishing)
@@ -58,4 +59,3 @@ TEST_F(AggregateCellStateChangesTests, resets_its_state_after_publishing)
 
     ASSERT_EQ(2, publisher.numberOfEventsOfType<CellStateChangesAggregated>());
 }
-

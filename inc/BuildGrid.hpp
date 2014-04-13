@@ -10,9 +10,12 @@ namespace ConwayGameOfLife {
 	class BuildGrid {
 	public:
         static BuildGrid OfSize(int);
-        ~BuildGrid() {
-            delete[] _gridData;
-        }
+        BuildGrid();
+        ~BuildGrid();
+        BuildGrid(BuildGrid&&);
+        BuildGrid(const BuildGrid&) = delete;
+        BuildGrid& operator=(const BuildGrid&) = delete;
+        BuildGrid& operator=(BuildGrid&&);
 
         void atPositionSetCellState(Position, bool);
         bool finished() const;
@@ -23,6 +26,7 @@ namespace ConwayGameOfLife {
         BuildGrid(int size);
 
         int _size;
+        int _numberOfCells;
         int _numberSet;
         bool* _gridData;
 	};

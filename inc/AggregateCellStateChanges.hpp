@@ -4,6 +4,8 @@
 #include "IPublish.hpp"
 #include "IHandle.hpp"
 
+#include "BuildGrid.hpp"
+
 #include "CellStateChanged.hpp"
 #include "GameInitiated.hpp"
 
@@ -19,9 +21,7 @@ namespace ConwayGameOfLife {
 
 	private:
         ::EventArchitecture::IPublish& _bus;
-
-        int _numberToAggregate;
-        int _numberAggregated;
+        BuildGrid _buildGrid;
 	};
 }
 #endif

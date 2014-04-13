@@ -5,18 +5,17 @@ using namespace ::EventArchitecture;
 
 AggregateCellStateChanges::AggregateCellStateChanges(::EventArchitecture::IPublish& bus) :
     _bus(bus),
-    _numberToAggregate(0),
-    _numberAggregated(0)
+    _buildGrid()
 {}
 
 void AggregateCellStateChanges::handle(GameInitiated event) {
-    _numberToAggregate = event.grid.numberOfCells();
+    _buildGrid = BuildGrid::OfSize(event.grid.size());
 }
 
-void AggregateCellStateChanges::handle(CellStateChanged) {
-    _numberAggregated++;
-    if (_numberAggregated == _numberToAggregate) {
-        _bus.publish(CellStateChangesAggregated());
-        _numberAggregated = 0;
+void AggregateCellStateChanges::handle(CellStateChanged event) {
+    _buildGrid.atPositionSetCellState(event.position, event.cellIsNowAlive);
+    if (_buildGrid.finished()) {
+        _bus.publish(CellStateChangesAggregated(_buildGrid.build()));
+        _buildGrid.reset();
     }
 }
