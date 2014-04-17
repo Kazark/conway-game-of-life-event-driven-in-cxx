@@ -2,15 +2,13 @@
 #define _CONWAYGAMEOFLIFE_GRID_HPP_
 
 #include "ArrayIterator.hpp"
-
-#include <vector>
-#include <initializer_list>
+#include "FixedLengthArray.hpp"
 
 namespace ConwayGameOfLife {
     class Cell;
 	class Grid {
 	public:
-        Grid(const std::vector<bool>&);
+        Grid(FixedLengthArray<bool>);
 
         ArrayIterator<const Cell&, Grid> iterator() const;
 
@@ -28,7 +26,7 @@ namespace ConwayGameOfLife {
 
         int _size;
         int _numberOfCells;
-        std::vector<Cell> _gridData;
+        FixedLengthArray<Cell> _gridData;
 	};
 }
 #endif

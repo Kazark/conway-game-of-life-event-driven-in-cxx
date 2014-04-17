@@ -3,8 +3,8 @@
 using namespace ::ConwayGameOfLife;
 #include <cmath>
 
-Grid::Grid(const std::vector<bool>& data) :
-    _size(sqrt(data.size())),
+Grid::Grid(FixedLengthArray<bool> data) :
+    _size(sqrt(data.length())),
     _numberOfCells(_size*_size),
     _gridData(_numberOfCells)
 {

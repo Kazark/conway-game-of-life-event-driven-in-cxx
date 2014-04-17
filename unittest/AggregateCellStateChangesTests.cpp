@@ -15,7 +15,7 @@ struct AggregateCellStateChangesTests: public ::testing::Test
         objectUnderTest(publisher)
     {
         heapAllocator.registerSubtype<CellStateChangesAggregated>();
-        objectUnderTest.handle({ true, false, false, true });
+        objectUnderTest.handle(GameInitiated({ true, false, false, true }));
     };
 
     HeapAllocatorForSubtypesOf<Event> heapAllocator;

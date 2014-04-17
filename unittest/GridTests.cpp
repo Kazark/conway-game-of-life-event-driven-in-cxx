@@ -6,7 +6,7 @@ using namespace ::ConwayGameOfLife;
 
 TEST(GridTests, grid_has_iterator)
 {
-    Grid objectUnderTest = std::vector<bool> { true, false, true, true };
+    Grid objectUnderTest = {{ true, false, true, true }};
     auto count(0);
     for (auto cell : objectUnderTest.iterator())
     {
@@ -21,7 +21,7 @@ TEST(GridTests, grid_has_iterator)
 TEST(GridTests, grids_of_different_sizes_are_not_equal)
 {
     Grid grid1({true, false, true, true});
-    Grid grid2({true});
+    Grid grid2(FixedLengthArray<bool>{true});
 
     ASSERT_NE(grid1, grid2);
 }
