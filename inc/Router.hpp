@@ -26,31 +26,31 @@ namespace EventArchitecture {
         {
             std::type_index key = typeid(TEvent);
             if (registry.count(key) == 0) {
-                auto unpackager = new Unpackager<TEvent>();
-                registry[key] = unpackager;
-                unpackager->addHandler(handler);
+                auto publisher = new Publisher<TEvent>();
+                registry[key] = publisher;
+                publisher->addHandler(handler);
             } else {
-                static_cast<Unpackager<TEvent>&>(*registry[key]).addHandler(handler);
+                static_cast<Publisher<TEvent>&>(*registry[key]).addHandler(handler);
             }
         }
 
         void invokeHandlers(const Event* event)
         {
-            auto unpackager = registry.at(typeid(*event));
-            unpackager->invokeHandlers(event);
+            auto publisher = registry.at(typeid(*event));
+            publisher->invokeHandlers(event);
         }
 
 	private:
-        class IUnpackage {
+        class HandlerProxy {
         public:
             virtual void invokeHandlers(const Event*) const = 0;
         };
 
-        friend class std::unordered_map<std::type_index, IUnpackage*>;
-        std::unordered_map<std::type_index, IUnpackage*> registry;
+        friend class std::unordered_map<std::type_index, HandlerProxy*>;
+        std::unordered_map<std::type_index, HandlerProxy*> registry;
 
         template<typename TEvent>
-        class Unpackager: public IUnpackage {
+        class Publisher: public HandlerProxy {
         public:
             void addHandler(IHandle<TEvent>& handler) {
                 _handlers.push_back(&handler);
