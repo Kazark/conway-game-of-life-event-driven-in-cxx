@@ -18,7 +18,7 @@ void Channel::enqueue(Event* event) {
 
 void Channel::deliverOne() {
     auto* event = _eventQueue.front();
-    _router.invokeHandler(event);
+    _router.invokeHandlers(event);
     _eventQueue.pop();
     delete event;
 }

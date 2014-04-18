@@ -11,7 +11,7 @@ TEST(RouterTests, throws_error_if_no_handler_registered_for_event)
 {
     EventForTesting event{3U};
 
-    ASSERT_THROW(Router().invokeHandler(&event), std::out_of_range);
+    ASSERT_THROW(Router().invokeHandlers(&event), std::out_of_range);
 }
 
 TEST(RouterTests, registers_and_invokes_handlers)
@@ -21,7 +21,22 @@ TEST(RouterTests, registers_and_invokes_handlers)
     Router objectUnderTest;
 
     objectUnderTest.registerHandler(handler);
-    objectUnderTest.invokeHandler(static_cast<Event*>(&event));
+    objectUnderTest.invokeHandlers(static_cast<Event*>(&event));
 
     ASSERT_TRUE(handler.handledEventWithId(event.id));
+}
+
+TEST(RouterTests, can_register_multiple_handlers_for_one_event)
+{
+    EventForTesting event{7U};
+    EventForTestingHandler handler1;
+    EventForTestingHandler handler2;
+    Router objectUnderTest;
+
+    objectUnderTest.registerHandler(handler1);
+    objectUnderTest.registerHandler(handler2);
+    objectUnderTest.invokeHandlers(&event);
+
+    ASSERT_TRUE(handler1.handledEventWithId(event.id));
+    ASSERT_TRUE(handler2.handledEventWithId(event.id));
 }

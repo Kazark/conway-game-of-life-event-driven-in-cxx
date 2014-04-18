@@ -8,6 +8,7 @@
 
 // C++ Standard libraries
 #include <unordered_map>
+#include <vector>
 #include <typeindex>
 #include <stdexcept>
 
@@ -23,19 +24,26 @@ namespace EventArchitecture {
         template<typename TEvent>
         void registerHandler(IHandle<TEvent>& handler)
         {
-            registry[typeid(TEvent)] = new Unpackager<TEvent>(handler);
+            std::type_index key = typeid(TEvent);
+            if (registry.count(key) == 0) {
+                auto unpackager = new Unpackager<TEvent>();
+                registry[key] = unpackager;
+                unpackager->addHandler(handler);
+            } else {
+                static_cast<Unpackager<TEvent>&>(*registry[key]).addHandler(handler);
+            }
         }
-        
-        void invokeHandler(const Event* event)
+
+        void invokeHandlers(const Event* event)
         {
             auto unpackager = registry.at(typeid(*event));
-            unpackager->invokeHandler(event);
+            unpackager->invokeHandlers(event);
         }
 
 	private:
         class IUnpackage {
         public:
-            virtual void invokeHandler(const Event*) const = 0;
+            virtual void invokeHandlers(const Event*) const = 0;
         };
 
         friend class std::unordered_map<std::type_index, IUnpackage*>;
@@ -44,16 +52,19 @@ namespace EventArchitecture {
         template<typename TEvent>
         class Unpackager: public IUnpackage {
         public:
-            Unpackager(IHandle<TEvent>& handler) :
-                _handler(handler)
-            {}
+            void addHandler(IHandle<TEvent>& handler) {
+                _handlers.push_back(&handler);
+            }
 
-            void invokeHandler(const Event* event) const {
+            void invokeHandlers(const Event* event) const {
                 auto unpackagedEvent = static_cast<const TEvent*>(event);
-                _handler.handle(*unpackagedEvent);
+                for (auto handler : _handlers)
+                {
+                    handler->handle(*unpackagedEvent);
+                }
             }
         private:
-            IHandle<TEvent>& _handler;
+            std::vector<IHandle<TEvent>*> _handlers;
         };
 	};
 }
