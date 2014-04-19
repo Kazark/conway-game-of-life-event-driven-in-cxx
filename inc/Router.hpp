@@ -43,6 +43,7 @@ namespace EventArchitecture {
 	private:
         class HandlerProxy {
         public:
+            virtual ~HandlerProxy() {}
             virtual void invokeHandlers(const Event*) const = 0;
         };
 
