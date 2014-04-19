@@ -8,9 +8,13 @@ using namespace ::EventArchitecture;
 #include "CountLivingNeighbors.hpp"
 #include "DetermineNextCellState.hpp"
 #include "AggregateCellStateChanges.hpp"
+#include "PrintGeneration.hpp"
+#include "OutputPlaintextCells.hpp"
 using namespace ::ConwayGameOfLife;
 
-int main(int /*argCount*/, char* /*argArray*/[])
+#include <iostream>
+
+int main(/*int argCount, char* argArray[]*/)
 {
     LazyInitContainer container;
     container.registerInjector<Router>(Inject<>::Into<Router>);
@@ -22,12 +26,16 @@ int main(int /*argCount*/, char* /*argArray*/[])
     container.registerInjector<CountLivingNeighbors>(Inject<Bus>::Into<CountLivingNeighbors>);
     container.registerInjector<DetermineNextCellState>(Inject<Bus>::Into<DetermineNextCellState>);
     container.registerInjector<AggregateCellStateChanges>(Inject<Bus>::Into<AggregateCellStateChanges>);
+    container.registerInjector<PrintGeneration>(Inject<OutputPlaintextCells>::Into<PrintGeneration>);
+
+    container.registerInjector<OutputPlaintextCells>([](LazyInitContainer&) { return new OutputPlaintextCells(std::cout); });
 
     auto bus = container.getInstanceOf<Bus>();
     bus.registerHandler(container.getInstanceOf<CountLivingNeighbors>());
     bus.registerHandler(container.getInstanceOf<DetermineNextCellState>());
     bus.registerHandler<GameInitiated>(container.getInstanceOf<AggregateCellStateChanges>());
     bus.registerHandler<CellStateChanged>(container.getInstanceOf<AggregateCellStateChanges>());
+    bus.registerHandler(container.getInstanceOf<PrintGeneration>());
 
     container.getInstanceOf<InitiateGameWithRandomGrid>().initiate();
     auto mainLoop = container.getInstanceOf<DeliverEventsUntilNoneLeft>();
