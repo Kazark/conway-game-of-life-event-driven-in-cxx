@@ -11,6 +11,9 @@ namespace ConwayGameOfLife {
         GenerationCompleted(std::initializer_list<bool> data) :
             grid(data)
         {}
+        GenerationCompleted(Grid data) :
+            grid(data)
+        {}
 
         Grid grid;
 	};
