@@ -1,6 +1,8 @@
 #ifndef _EVENTARCHITECTURE_HEAPALLOCATORFORSUBTYPESOF_HPP_
 #define _EVENTARCHITECTURE_HEAPALLOCATORFORSUBTYPESOF_HPP_
 
+#include "ReferenceType.hpp"
+
 #include <functional>
 #include <unordered_map>
 #include <typeindex>
@@ -8,7 +10,7 @@
 
 namespace EventArchitecture {
     template<typename TBase>
-	class HeapAllocatorForSubtypesOf {
+	class HeapAllocatorForSubtypesOf: public ReferenceType {
 	public:
         template<typename TChild>
         void registerSubtype() {
@@ -16,11 +18,13 @@ namespace EventArchitecture {
         }
 
         TBase* fromConstRef(const TBase& object) {
-            try {
-                return _copiers.at(typeid(object))(object);
-            } catch (std::out_of_range&) {
+            std::type_index key = typeid(object);
+            if (_copiers.count(key) == 0)
+            {
                 return nullptr;
             }
+            auto copy = _copiers.at(key);
+            return copy(object);
         }
 
 	private:

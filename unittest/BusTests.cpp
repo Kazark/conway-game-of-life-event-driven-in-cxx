@@ -10,12 +10,13 @@ struct BusTests: public ::testing::Test
     BusTests() :
         router(),
         channel(router),
-        objectUnderTest(router, channel)
+        objectUnderTest(router, channel, heapAllocator)
     {
     };
 
     Router router;
     Channel channel;
+    HeapAllocatorForSubtypesOf<Event> heapAllocator;
     Bus objectUnderTest;
 };
 

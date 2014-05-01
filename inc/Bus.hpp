@@ -9,7 +9,7 @@
 namespace EventArchitecture {
 	class Bus : public IPublish {
 	public:
-        Bus(Router&, Channel&);
+        Bus(Router&, Channel&, HeapAllocatorForSubtypesOf<Event>&);
 
         template<typename TEvent>
         void registerHandler(IHandle<TEvent>& handler)
@@ -23,7 +23,7 @@ namespace EventArchitecture {
 	private:
         Router& _eventRouter;
         Channel& _channel;
-        HeapAllocatorForSubtypesOf<Event> _heapAllocator;
+        HeapAllocatorForSubtypesOf<Event>& _heapAllocator;
 	};
 }
 #endif

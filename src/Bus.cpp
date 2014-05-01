@@ -1,10 +1,10 @@
 #include "Bus.hpp"
 using namespace ::EventArchitecture;
 
-Bus::Bus(Router& router, Channel& channel) :
+Bus::Bus(Router& router, Channel& channel, HeapAllocatorForSubtypesOf<Event>& heapAllocator) :
     _eventRouter(router),
     _channel(channel),
-    _heapAllocator()
+    _heapAllocator(heapAllocator)
 {}
 
 void Bus::publish(const Event& event) {
