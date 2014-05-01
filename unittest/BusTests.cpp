@@ -28,7 +28,7 @@ TEST_F(BusTests, smoke_test)
     objectUnderTest.publish(event);
     channel.deliverOne();
 
-    handler.handledEventWithId(event.id);
+    ASSERT_TRUE(handler.handledEventWithId(event.id));
 }
 
 TEST_F(BusTests, does_not_enqueue_anything_on_channel_when_no_event_handler_registered_for_type)

@@ -26,4 +26,5 @@ TEST_F(HasGameReachedTerminalStateTests, publishes_GenerationCompleted_from_Game
     GameInitiated event{ true, false, true, false };
     objectUnderTest.handle(event);
     ASSERT_TRUE(publisher.any());
+    ASSERT_EQ(event.grid, publisher.lastEventOfType<GenerationCompleted>()->grid);
 }
