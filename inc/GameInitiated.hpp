@@ -8,6 +8,7 @@
 namespace ConwayGameOfLife {
 	struct GameInitiated : public ::EventArchitecture::Event {
         GameInitiated(std::initializer_list<bool> grid) : grid(grid) {}
+        GameInitiated(Grid grid) : grid(grid) {}
         Grid grid;
 	};
 }

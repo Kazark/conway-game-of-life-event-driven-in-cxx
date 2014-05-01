@@ -1,5 +1,6 @@
 #include "HasGameReachedTerminalState.hpp"
 #include "GenerationCompleted.hpp"
+#include "StasisReached.hpp"
 using namespace ConwayGameOfLife;
 using namespace EventArchitecture;
 
@@ -12,4 +13,5 @@ void HasGameReachedTerminalState::handle(GameInitiated inEvent) {
 }
 
 void HasGameReachedTerminalState::handle(CellStateChangesAggregated) {
+    _bus.publish(StasisReached());
 }
