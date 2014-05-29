@@ -27,7 +27,7 @@ TEST_F(HasGameReachedTerminalStateTests, publishes_GenerationCompleted_from_Game
 {
     GameInitiated event{ true, false, true, false };
     objectUnderTest.handle(event);
-    ASSERT_EQ(1, publisher.numberOfEventsOfType<GenerationCompleted>());
+    ASSERT_TRUE(publisher.onlyOne());
     ASSERT_EQ(event.grid, publisher.lastEventOfType<GenerationCompleted>()->grid);
 }
 
@@ -37,4 +37,13 @@ TEST_F(HasGameReachedTerminalStateTests, publishes_StasisReached_if_game_begins_
     objectUnderTest.handle(GameInitiated(grid));
     objectUnderTest.handle(CellStateChangesAggregated(grid));
     ASSERT_EQ(1, publisher.numberOfEventsOfType<StasisReached>());
+}
+
+TEST_F(HasGameReachedTerminalStateTests, publishes_GenerationCompleted_if_game_state_is_not_terminal)
+{
+    GameInitiated firstGeneration{ true, true, true, false };
+    CellStateChangesAggregated secondGeneration{ true, false, true, false };
+    objectUnderTest.handle(firstGeneration);
+    objectUnderTest.handle(secondGeneration);
+    ASSERT_EQ(secondGeneration.aggregateState, publisher.lastEventOfType<GenerationCompleted>()->grid);
 }

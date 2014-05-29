@@ -8,6 +8,7 @@ namespace ConwayGameOfLife {
     class Cell;
 	class Grid {
 	public:
+        Grid();
         Grid(FixedLengthArray<bool>);
 
         ArrayIterator<const Cell&, Grid> iterator() const;

@@ -20,6 +20,7 @@ namespace ConwayGameOfLife {
 
 	private:
         ::EventArchitecture::IPublish& _bus;
+        Grid _previousGrid;
 	};
 }
 #endif

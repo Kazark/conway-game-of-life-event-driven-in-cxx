@@ -41,7 +41,7 @@ namespace ConwayGameOfLife {
 
         FixedLengthArray& operator=(const FixedLengthArray& that)
         {
-            length = that._length;
+            _length = that._length;
             if (_storage == nullptr)
             {
                 _storage = new T[_length];
@@ -57,9 +57,7 @@ namespace ConwayGameOfLife {
         FixedLengthArray& operator=(FixedLengthArray&& that)
         {
             _length = that._length;
-            if (_storage != nullptr) {
-                deleteStorage();
-            }
+            deleteStorage();
             _storage = that._storage;
             that._storage = nullptr;
             return *this;
@@ -117,7 +115,9 @@ namespace ConwayGameOfLife {
 
 	private:
         void deleteStorage() {
-            delete[] _storage;
+            if (_storage != nullptr) {
+                delete[] _storage;
+            }
         }
 
         int _length;

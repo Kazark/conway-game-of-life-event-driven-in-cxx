@@ -3,6 +3,13 @@
 using namespace ::ConwayGameOfLife;
 #include <cmath>
 
+Grid::Grid() :
+    _size(0),
+    _numberOfCells(0),
+    _gridData()
+{
+}
+
 Grid::Grid(FixedLengthArray<bool> data) :
     _size(sqrt(data.length())),
     _numberOfCells(_size*_size),

@@ -57,6 +57,10 @@ public:
         return _publishedEvents.size() > 0;
     }
 
+    bool onlyOne() const {
+        return _publishedEvents.size() == 1;
+    }
+
 private:
     std::vector<std::type_index> _publishedEventTypes;
     std::vector<EventArchitecture::Event*> _publishedEvents;
