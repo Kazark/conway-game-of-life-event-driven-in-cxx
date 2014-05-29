@@ -3,9 +3,15 @@
 
 #include "ArrayIterator.hpp"
 #include "FixedLengthArray.hpp"
+#include "Position.hpp"
 
 namespace ConwayGameOfLife {
-    class Cell;
+	class Cell {
+	public:
+        bool isLiving;
+        Position position;
+	};
+
 	class Grid {
 	public:
         Grid();
@@ -15,6 +21,8 @@ namespace ConwayGameOfLife {
 
         int size() const;
         int numberOfCells() const;        
+
+        Cell cellAt(Position) const;
 
         bool operator==(const Grid&) const;
         bool operator!=(const Grid&) const;

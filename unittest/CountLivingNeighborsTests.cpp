@@ -49,3 +49,10 @@ TEST_F(CountLivingNeighborsTests, publishes_position_information_for_cells)
     objectUnderTest.handle(event);
     EXPECT_EQ(Position(1, 1), publisher.lastEventOfType<LivingNeighborsOfCellCounted>()->cellPosition);
 }
+
+TEST_F(CountLivingNeighborsTests, publishes_number_of_living_neighbors_for_cells)
+{
+    GenerationCompleted event = { true, false, true, true };
+    objectUnderTest.handle(event);
+    EXPECT_EQ(2U, publisher.lastEventOfType<LivingNeighborsOfCellCounted>()->numberOfLivingNeighbors);
+}

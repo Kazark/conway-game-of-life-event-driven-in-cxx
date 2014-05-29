@@ -1,5 +1,4 @@
 #include "BuildGrid.hpp"
-#include "Cell.hpp"
 using namespace ::ConwayGameOfLife;
 
 #include <algorithm>

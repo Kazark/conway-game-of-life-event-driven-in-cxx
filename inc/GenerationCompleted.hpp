@@ -3,7 +3,6 @@
 
 #include "Event.hpp"
 #include "Grid.hpp"
-#include "Cell.hpp"
 
 namespace ConwayGameOfLife {
 	class GenerationCompleted : public ::EventArchitecture::Event {

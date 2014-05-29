@@ -1,5 +1,4 @@
 #include "Grid.hpp"
-#include "Cell.hpp"
 using namespace ::ConwayGameOfLife;
 #include <cmath>
 
@@ -17,7 +16,7 @@ Grid::Grid(FixedLengthArray<bool> data) :
 {
     for (auto i = 0; i < _numberOfCells; i++)
     {
-        Cell cell(this);
+        Cell cell;
         cell.isLiving = data[i];
         cell.position = Position::InGridOfSize(_size).fromScalar(i);
         _gridData[i] = cell;
@@ -46,6 +45,19 @@ bool Grid::operator==(const Grid& that) const {
     }
 
     return true;
+}
+
+Cell Grid::cellAt(Position position) const
+{
+    auto positionInGrid = position.inGridOfSize(_size);
+    if (positionInGrid.isOutOfBounds())
+    {
+        Cell cell;
+        cell.position = position;
+        cell.isLiving = false;
+        return cell;
+    }
+    return _gridData[positionInGrid.toScalar()];
 }
 
 bool Grid::operator!=(const Grid& that) const {

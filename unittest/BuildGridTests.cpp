@@ -1,7 +1,6 @@
 #include "gtest/gtest.h"
 
 #include "BuildGrid.hpp"
-#include "Cell.hpp"
 using namespace ::ConwayGameOfLife;
 
 struct BuildGridTests: public ::testing::Test {

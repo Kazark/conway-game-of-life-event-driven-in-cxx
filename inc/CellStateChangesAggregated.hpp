@@ -3,7 +3,6 @@
 
 #include "Event.hpp"
 #include "Grid.hpp"
-#include "Cell.hpp"
 #include <initializer_list>
 
 namespace ConwayGameOfLife {
