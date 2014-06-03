@@ -21,6 +21,7 @@ void HasGameReachedTerminalState::handle(CellStateChangesAggregated event) {
     }
     else
     {
+        _previousGrid = event.aggregateState;
         _bus.publish(GenerationCompleted(event.aggregateState));
     }
 }

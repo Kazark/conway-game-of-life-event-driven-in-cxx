@@ -47,3 +47,14 @@ TEST_F(HasGameReachedTerminalStateTests, publishes_GenerationCompleted_if_game_s
     objectUnderTest.handle(secondGeneration);
     ASSERT_EQ(secondGeneration.aggregateState, publisher.lastEventOfType<GenerationCompleted>()->grid);
 }
+
+TEST_F(HasGameReachedTerminalStateTests, publishes_StasisReached_if_game_settles_into_stasis)
+{
+    GameInitiated firstGeneration{ true, true, true, false };
+    CellStateChangesAggregated secondGeneration{ true, false, true, false };
+    objectUnderTest.handle(firstGeneration);
+    objectUnderTest.handle(secondGeneration);
+    objectUnderTest.handle(secondGeneration);
+    ASSERT_EQ(2, publisher.numberOfEventsOfType<GenerationCompleted>());
+    ASSERT_TRUE(publisher.lastEventWasOfType<StasisReached>());
+}

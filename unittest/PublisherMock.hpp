@@ -53,6 +53,12 @@ public:
         return static_cast<T*>(_publishedEvents.back());
     }
 
+    template<typename T>
+    bool lastEventWasOfType()
+    {
+        return _publishedEventTypes.size() > 0 && _publishedEventTypes.back() == typeid(T);
+    }
+
     bool any() const {
         return _publishedEvents.size() > 0;
     }
