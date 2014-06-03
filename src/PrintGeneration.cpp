@@ -16,4 +16,5 @@ void PrintGeneration::handle(GenerationCompleted event) {
             _outputter.startNextRow();
         }
     }
+    _outputter.startNextRow();
 }

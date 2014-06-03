@@ -27,5 +27,5 @@ TEST_F(PrintGenerationTests, smoke_test)
         true, false, false
     });
 
-    ASSERT_EQ("O.O\n.O.\nO..\n", stringBuilder.str());
+    ASSERT_EQ("O.O\n.O.\nO..\n\n", stringBuilder.str());
 }
